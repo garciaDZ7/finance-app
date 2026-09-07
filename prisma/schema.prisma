@@ -115,6 +115,7 @@ model User {
   memberships             GroupMember[]
   payments                Payment[]              @relation("PaymentPaidBy")
   recurringTransactions   RecurringTransaction[] @relation("RecurringTransactionOwner")
+  installmentPlans        InstallmentPlan[]      @relation("InstallmentPlanResponsibleUser")
   splitParticipants       SplitParticipant[]
   transactionsResponsible Transaction[]          @relation("TransactionResponsibleUser")
 
@@ -185,6 +186,7 @@ model Category {
   group     Group? @relation(fields: [groupId], references: [id], onDelete: Restrict)
 
   recurringTransactions RecurringTransaction[]
+  installmentPlans      InstallmentPlan[]      @relation("InstallmentPlanCategory")
   transactions          Transaction[]
 
   @@unique([groupId, name])
@@ -208,11 +210,14 @@ model Transaction {
   groupId                String? @map("group_id") @db.Uuid
   recurringTransactionId String? @map("recurring_transaction_id") @db.Uuid
   responsibleUserId      String  @map("responsible_user_id") @db.Uuid
+  installmentPlanId      String? @map("installment_plan_id") @db.Uuid
+  installmentNumber      Int?    @map("installment_number")
 
   category             Category?             @relation(fields: [categoryId], references: [id], onDelete: Restrict)
   group                Group?                @relation(fields: [groupId], references: [id], onDelete: Restrict)
   recurringTransaction RecurringTransaction? @relation(fields: [recurringTransactionId], references: [id], onDelete: SetNull)
   responsibleUser      User                  @relation("TransactionResponsibleUser", fields: [responsibleUserId], references: [id], onDelete: Restrict)
+  installmentPlan      InstallmentPlan?      @relation(fields: [installmentPlanId], references: [id], onDelete: Restrict)
 
   attachment Attachment?
   split      Split?
@@ -223,7 +228,30 @@ model Transaction {
   @@index([recurringTransactionId])
   @@index([responsibleUserId])
   @@index([type])
+  @@index([installmentPlanId])
   @@map("transactions")
+}
+
+model InstallmentPlan {
+  id                String   @id @default(uuid()) @db.Uuid
+  totalAmount       Decimal  @db.Decimal(12, 2)
+  installmentCount  Int      @map("installment_count")
+  firstOccurredAt   DateTime @map("first_occurred_at")
+  description       String
+  createdAt         DateTime @default(now()) @map("created_at")
+  updatedAt         DateTime @updatedAt @map("updated_at")
+
+  responsibleUserId String @map("responsible_user_id") @db.Uuid
+  categoryId        String @map("category_id") @db.Uuid
+
+  responsibleUser User         @relation("InstallmentPlanResponsibleUser", fields: [responsibleUserId], references: [id], onDelete: Restrict)
+  category        Category     @relation("InstallmentPlanCategory", fields: [categoryId], references: [id], onDelete: Restrict)
+  transactions    Transaction[]
+
+  @@index([responsibleUserId])
+  @@index([categoryId])
+  @@index([firstOccurredAt])
+  @@map("installment_plans")
 }
 
 model Split {

@@ -634,14 +634,6 @@ export type EnumAttachmentFileTypeFieldUpdateOperationsInput = {
   set?: $Enums.AttachmentFileType
 }
 
-export type NullableIntFieldUpdateOperationsInput = {
-  set?: number | null
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type AttachmentCreateWithoutUploadedByInput = {
   id?: string
   fileName: string

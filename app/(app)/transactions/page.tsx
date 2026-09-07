@@ -20,8 +20,11 @@ const errorMessages: Record<string, string> = {
   INVALID_AMOUNT: "Informe um valor maior que zero com no maximo duas casas decimais.",
   INVALID_DATE: "Informe uma data valida.",
   INVALID_DESCRIPTION: "Informe uma descricao de ate 200 caracteres.",
+  INVALID_INSTALLMENT_COUNT: "Informe entre 2 e 60 parcelas.",
   TRANSACTION_NOT_FOUND: "Transacao nao encontrada ou sem permissao para altera-la.",
+  INSTALLMENT_IMMUTABLE: "Parcelas nao podem ser editadas nesta versao.",
   DELETE_FAILED: "Nao foi possivel excluir a transacao. Ela pode estar relacionada a outro recurso.",
+  INSTALLMENT_DELETE_FAILED: "Nao foi possivel excluir o parcelamento. Uma parcela pode estar relacionada a outro recurso.",
   UNEXPECTED_ERROR: "Nao foi possivel salvar a transacao. Tente novamente.",
 };
 
@@ -80,6 +83,13 @@ export default async function TransactionsPage({
         amount: true,
         occurredAt: true,
         description: true,
+        installmentNumber: true,
+        installmentPlan: {
+          select: {
+            id: true,
+            installmentCount: true,
+          },
+        },
         category: {
           select: {
             id: true,
@@ -152,6 +162,19 @@ export default async function TransactionsPage({
                 <input name="occurredAt" type="date" required className="h-11 w-full rounded-md border border-zinc-700 bg-zinc-950 px-3 text-zinc-50" />
               </label>
 
+              <label className="space-y-2 text-sm text-zinc-300">
+                <span>É parcelado?</span>
+                <select name="isInstallment" defaultValue="no" className="h-11 w-full rounded-md border border-zinc-700 bg-zinc-950 px-3 text-zinc-50">
+                  <option value="no">Nao</option>
+                  <option value="yes">Sim</option>
+                </select>
+              </label>
+
+              <label className="space-y-2 text-sm text-zinc-300">
+                <span>Numero de parcelas</span>
+                <input name="installmentCount" type="number" min={2} max={60} defaultValue={2} className="h-11 w-full rounded-md border border-zinc-700 bg-zinc-950 px-3 text-zinc-50" />
+              </label>
+
               <label className="space-y-2 text-sm text-zinc-300 sm:col-span-2">
                 <span>Descricao</span>
                 <input name="description" maxLength={200} required className="h-11 w-full rounded-md border border-zinc-700 bg-zinc-950 px-3 text-zinc-50" />
@@ -173,45 +196,60 @@ export default async function TransactionsPage({
           ) : (
             transactions.map((transaction) => (
               <div key={transaction.id} className="rounded-md border border-zinc-800 bg-zinc-900/40 p-4">
-                <form action={updateTransaction} className="grid gap-3 sm:grid-cols-2">
-                  <input type="hidden" name="transactionId" value={transaction.id} />
-                  <label className="space-y-1 text-sm text-zinc-300">
-                    <span>Tipo</span>
-                    <select name="type" defaultValue={transaction.type} className="h-10 w-full rounded-md border border-zinc-700 bg-zinc-950 px-3 text-zinc-50">
-                      <option value={TransactionType.INCOME}>Receita</option>
-                      <option value={TransactionType.EXPENSE}>Despesa</option>
-                    </select>
-                  </label>
-                  <label className="space-y-1 text-sm text-zinc-300">
-                    <span>Categoria</span>
-                    <select name="categoryId" defaultValue={transaction.category?.id ?? ""} required className="h-10 w-full rounded-md border border-zinc-700 bg-zinc-950 px-3 text-zinc-50">
-                      {categories.map((category) => <option key={category.id} value={category.id}>{category.name}</option>)}
-                    </select>
-                  </label>
-                  <label className="space-y-1 text-sm text-zinc-300">
-                    <span>Valor</span>
-                    <input name="amount" type="text" inputMode="decimal" defaultValue={String(transaction.amount)} required className="h-10 w-full rounded-md border border-zinc-700 bg-zinc-950 px-3 text-zinc-50" />
-                  </label>
-                  <label className="space-y-1 text-sm text-zinc-300">
-                    <span>Data</span>
-                    <input name="occurredAt" type="date" defaultValue={formatDateInput(transaction.occurredAt)} required className="h-10 w-full rounded-md border border-zinc-700 bg-zinc-950 px-3 text-zinc-50" />
-                  </label>
-                  <label className="space-y-1 text-sm text-zinc-300 sm:col-span-2">
-                    <span>Descricao</span>
-                    <input name="description" defaultValue={transaction.description} maxLength={200} required className="h-10 w-full rounded-md border border-zinc-700 bg-zinc-950 px-3 text-zinc-50" />
-                  </label>
-                  <div className="flex items-center justify-between gap-3 sm:col-span-2">
+                {transaction.installmentPlan ? (
+                  <div className="space-y-2">
+                    <p className="text-sm font-medium text-zinc-200">
+                      {transaction.description}
+                    </p>
+                    <p className="text-sm text-zinc-400">
+                      Parcela {transaction.installmentNumber}/{transaction.installmentPlan.installmentCount} · {transaction.category?.name ?? "Sem categoria"}
+                    </p>
                     <p className={transaction.type === TransactionType.INCOME ? "text-sm font-medium text-emerald-300" : "text-sm font-medium text-rose-300"}>
                       {transaction.type === TransactionType.INCOME ? "+" : "-"}{String(transaction.amount)} em {formatDate(transaction.occurredAt)}
                     </p>
-                    <div className="flex gap-2">
+                    <p className="text-xs text-zinc-500">Parcelamento imutavel nesta versao.</p>
+                  </div>
+                ) : (
+                  <form action={updateTransaction} className="grid gap-3 sm:grid-cols-2">
+                    <input type="hidden" name="transactionId" value={transaction.id} />
+                    <label className="space-y-1 text-sm text-zinc-300">
+                      <span>Tipo</span>
+                      <select name="type" defaultValue={transaction.type} className="h-10 w-full rounded-md border border-zinc-700 bg-zinc-950 px-3 text-zinc-50">
+                        <option value={TransactionType.INCOME}>Receita</option>
+                        <option value={TransactionType.EXPENSE}>Despesa</option>
+                      </select>
+                    </label>
+                    <label className="space-y-1 text-sm text-zinc-300">
+                      <span>Categoria</span>
+                      <select name="categoryId" defaultValue={transaction.category?.id ?? ""} required className="h-10 w-full rounded-md border border-zinc-700 bg-zinc-950 px-3 text-zinc-50">
+                        {categories.map((category) => <option key={category.id} value={category.id}>{category.name}</option>)}
+                      </select>
+                    </label>
+                    <label className="space-y-1 text-sm text-zinc-300">
+                      <span>Valor</span>
+                      <input name="amount" type="text" inputMode="decimal" defaultValue={String(transaction.amount)} required className="h-10 w-full rounded-md border border-zinc-700 bg-zinc-950 px-3 text-zinc-50" />
+                    </label>
+                    <label className="space-y-1 text-sm text-zinc-300">
+                      <span>Data</span>
+                      <input name="occurredAt" type="date" defaultValue={formatDateInput(transaction.occurredAt)} required className="h-10 w-full rounded-md border border-zinc-700 bg-zinc-950 px-3 text-zinc-50" />
+                    </label>
+                    <label className="space-y-1 text-sm text-zinc-300 sm:col-span-2">
+                      <span>Descricao</span>
+                      <input name="description" defaultValue={transaction.description} maxLength={200} required className="h-10 w-full rounded-md border border-zinc-700 bg-zinc-950 px-3 text-zinc-50" />
+                    </label>
+                    <div className="flex items-center justify-between gap-3 sm:col-span-2">
+                      <p className={transaction.type === TransactionType.INCOME ? "text-sm font-medium text-emerald-300" : "text-sm font-medium text-rose-300"}>
+                        {transaction.type === TransactionType.INCOME ? "+" : "-"}{String(transaction.amount)} em {formatDate(transaction.occurredAt)}
+                      </p>
                       <button type="submit" className="h-10 rounded-md border border-zinc-700 px-3 text-sm font-medium text-zinc-200 hover:border-zinc-400">Salvar</button>
                     </div>
-                  </div>
-                </form>
+                  </form>
+                )}
                 <form action={deleteTransaction} className="mt-2 flex justify-end">
                   <input type="hidden" name="transactionId" value={transaction.id} />
-                  <button type="submit" className="h-10 rounded-md border border-rose-900 px-3 text-sm font-medium text-rose-300 hover:border-rose-500">Excluir</button>
+                  <button type="submit" className="h-10 rounded-md border border-rose-900 px-3 text-sm font-medium text-rose-300 hover:border-rose-500">
+                    {transaction.installmentPlan ? "Excluir parcelamento" : "Excluir"}
+                  </button>
                 </form>
               </div>
             ))

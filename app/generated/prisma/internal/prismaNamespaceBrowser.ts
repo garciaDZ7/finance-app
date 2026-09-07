@@ -56,6 +56,7 @@ export const ModelName = {
   GroupMember: 'GroupMember',
   Category: 'Category',
   Transaction: 'Transaction',
+  InstallmentPlan: 'InstallmentPlan',
   Split: 'Split',
   SplitParticipant: 'SplitParticipant',
   Payment: 'Payment',
@@ -154,10 +155,27 @@ export const TransactionScalarFieldEnum = {
   categoryId: 'categoryId',
   groupId: 'groupId',
   recurringTransactionId: 'recurringTransactionId',
-  responsibleUserId: 'responsibleUserId'
+  responsibleUserId: 'responsibleUserId',
+  installmentPlanId: 'installmentPlanId',
+  installmentNumber: 'installmentNumber'
 } as const
 
 export type TransactionScalarFieldEnum = (typeof TransactionScalarFieldEnum)[keyof typeof TransactionScalarFieldEnum]
+
+
+export const InstallmentPlanScalarFieldEnum = {
+  id: 'id',
+  totalAmount: 'totalAmount',
+  installmentCount: 'installmentCount',
+  firstOccurredAt: 'firstOccurredAt',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  responsibleUserId: 'responsibleUserId',
+  categoryId: 'categoryId'
+} as const
+
+export type InstallmentPlanScalarFieldEnum = (typeof InstallmentPlanScalarFieldEnum)[keyof typeof InstallmentPlanScalarFieldEnum]
 
 
 export const SplitScalarFieldEnum = {

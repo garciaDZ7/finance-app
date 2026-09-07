@@ -28,10 +28,12 @@ export type AggregateTransaction = {
 
 export type TransactionAvgAggregateOutputType = {
   amount: runtime.Decimal | null
+  installmentNumber: number | null
 }
 
 export type TransactionSumAggregateOutputType = {
   amount: runtime.Decimal | null
+  installmentNumber: number | null
 }
 
 export type TransactionMinAggregateOutputType = {
@@ -47,6 +49,8 @@ export type TransactionMinAggregateOutputType = {
   groupId: string | null
   recurringTransactionId: string | null
   responsibleUserId: string | null
+  installmentPlanId: string | null
+  installmentNumber: number | null
 }
 
 export type TransactionMaxAggregateOutputType = {
@@ -62,6 +66,8 @@ export type TransactionMaxAggregateOutputType = {
   groupId: string | null
   recurringTransactionId: string | null
   responsibleUserId: string | null
+  installmentPlanId: string | null
+  installmentNumber: number | null
 }
 
 export type TransactionCountAggregateOutputType = {
@@ -77,16 +83,20 @@ export type TransactionCountAggregateOutputType = {
   groupId: number
   recurringTransactionId: number
   responsibleUserId: number
+  installmentPlanId: number
+  installmentNumber: number
   _all: number
 }
 
 
 export type TransactionAvgAggregateInputType = {
   amount?: true
+  installmentNumber?: true
 }
 
 export type TransactionSumAggregateInputType = {
   amount?: true
+  installmentNumber?: true
 }
 
 export type TransactionMinAggregateInputType = {
@@ -102,6 +112,8 @@ export type TransactionMinAggregateInputType = {
   groupId?: true
   recurringTransactionId?: true
   responsibleUserId?: true
+  installmentPlanId?: true
+  installmentNumber?: true
 }
 
 export type TransactionMaxAggregateInputType = {
@@ -117,6 +129,8 @@ export type TransactionMaxAggregateInputType = {
   groupId?: true
   recurringTransactionId?: true
   responsibleUserId?: true
+  installmentPlanId?: true
+  installmentNumber?: true
 }
 
 export type TransactionCountAggregateInputType = {
@@ -132,6 +146,8 @@ export type TransactionCountAggregateInputType = {
   groupId?: true
   recurringTransactionId?: true
   responsibleUserId?: true
+  installmentPlanId?: true
+  installmentNumber?: true
   _all?: true
 }
 
@@ -234,6 +250,8 @@ export type TransactionGroupByOutputType = {
   groupId: string | null
   recurringTransactionId: string | null
   responsibleUserId: string
+  installmentPlanId: string | null
+  installmentNumber: number | null
   _count: TransactionCountAggregateOutputType | null
   _avg: TransactionAvgAggregateOutputType | null
   _sum: TransactionSumAggregateOutputType | null
@@ -272,10 +290,13 @@ export type TransactionWhereInput = {
   groupId?: Prisma.UuidNullableFilter<"Transaction"> | string | null
   recurringTransactionId?: Prisma.UuidNullableFilter<"Transaction"> | string | null
   responsibleUserId?: Prisma.UuidFilter<"Transaction"> | string
+  installmentPlanId?: Prisma.UuidNullableFilter<"Transaction"> | string | null
+  installmentNumber?: Prisma.IntNullableFilter<"Transaction"> | number | null
   category?: Prisma.XOR<Prisma.CategoryNullableScalarRelationFilter, Prisma.CategoryWhereInput> | null
   group?: Prisma.XOR<Prisma.GroupNullableScalarRelationFilter, Prisma.GroupWhereInput> | null
   recurringTransaction?: Prisma.XOR<Prisma.RecurringTransactionNullableScalarRelationFilter, Prisma.RecurringTransactionWhereInput> | null
   responsibleUser?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  installmentPlan?: Prisma.XOR<Prisma.InstallmentPlanNullableScalarRelationFilter, Prisma.InstallmentPlanWhereInput> | null
   attachment?: Prisma.XOR<Prisma.AttachmentNullableScalarRelationFilter, Prisma.AttachmentWhereInput> | null
   split?: Prisma.XOR<Prisma.SplitNullableScalarRelationFilter, Prisma.SplitWhereInput> | null
 }
@@ -293,10 +314,13 @@ export type TransactionOrderByWithRelationInput = {
   groupId?: Prisma.SortOrderInput | Prisma.SortOrder
   recurringTransactionId?: Prisma.SortOrderInput | Prisma.SortOrder
   responsibleUserId?: Prisma.SortOrder
+  installmentPlanId?: Prisma.SortOrderInput | Prisma.SortOrder
+  installmentNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   category?: Prisma.CategoryOrderByWithRelationInput
   group?: Prisma.GroupOrderByWithRelationInput
   recurringTransaction?: Prisma.RecurringTransactionOrderByWithRelationInput
   responsibleUser?: Prisma.UserOrderByWithRelationInput
+  installmentPlan?: Prisma.InstallmentPlanOrderByWithRelationInput
   attachment?: Prisma.AttachmentOrderByWithRelationInput
   split?: Prisma.SplitOrderByWithRelationInput
 }
@@ -317,10 +341,13 @@ export type TransactionWhereUniqueInput = Prisma.AtLeast<{
   groupId?: Prisma.UuidNullableFilter<"Transaction"> | string | null
   recurringTransactionId?: Prisma.UuidNullableFilter<"Transaction"> | string | null
   responsibleUserId?: Prisma.UuidFilter<"Transaction"> | string
+  installmentPlanId?: Prisma.UuidNullableFilter<"Transaction"> | string | null
+  installmentNumber?: Prisma.IntNullableFilter<"Transaction"> | number | null
   category?: Prisma.XOR<Prisma.CategoryNullableScalarRelationFilter, Prisma.CategoryWhereInput> | null
   group?: Prisma.XOR<Prisma.GroupNullableScalarRelationFilter, Prisma.GroupWhereInput> | null
   recurringTransaction?: Prisma.XOR<Prisma.RecurringTransactionNullableScalarRelationFilter, Prisma.RecurringTransactionWhereInput> | null
   responsibleUser?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  installmentPlan?: Prisma.XOR<Prisma.InstallmentPlanNullableScalarRelationFilter, Prisma.InstallmentPlanWhereInput> | null
   attachment?: Prisma.XOR<Prisma.AttachmentNullableScalarRelationFilter, Prisma.AttachmentWhereInput> | null
   split?: Prisma.XOR<Prisma.SplitNullableScalarRelationFilter, Prisma.SplitWhereInput> | null
 }, "id">
@@ -338,6 +365,8 @@ export type TransactionOrderByWithAggregationInput = {
   groupId?: Prisma.SortOrderInput | Prisma.SortOrder
   recurringTransactionId?: Prisma.SortOrderInput | Prisma.SortOrder
   responsibleUserId?: Prisma.SortOrder
+  installmentPlanId?: Prisma.SortOrderInput | Prisma.SortOrder
+  installmentNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.TransactionCountOrderByAggregateInput
   _avg?: Prisma.TransactionAvgOrderByAggregateInput
   _max?: Prisma.TransactionMaxOrderByAggregateInput
@@ -361,6 +390,8 @@ export type TransactionScalarWhereWithAggregatesInput = {
   groupId?: Prisma.UuidNullableWithAggregatesFilter<"Transaction"> | string | null
   recurringTransactionId?: Prisma.UuidNullableWithAggregatesFilter<"Transaction"> | string | null
   responsibleUserId?: Prisma.UuidWithAggregatesFilter<"Transaction"> | string
+  installmentPlanId?: Prisma.UuidNullableWithAggregatesFilter<"Transaction"> | string | null
+  installmentNumber?: Prisma.IntNullableWithAggregatesFilter<"Transaction"> | number | null
 }
 
 export type TransactionCreateInput = {
@@ -372,10 +403,12 @@ export type TransactionCreateInput = {
   note?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  installmentNumber?: number | null
   category?: Prisma.CategoryCreateNestedOneWithoutTransactionsInput
   group?: Prisma.GroupCreateNestedOneWithoutTransactionsInput
   recurringTransaction?: Prisma.RecurringTransactionCreateNestedOneWithoutTransactionsInput
   responsibleUser: Prisma.UserCreateNestedOneWithoutTransactionsResponsibleInput
+  installmentPlan?: Prisma.InstallmentPlanCreateNestedOneWithoutTransactionsInput
   attachment?: Prisma.AttachmentCreateNestedOneWithoutTransactionInput
   split?: Prisma.SplitCreateNestedOneWithoutTransactionInput
 }
@@ -393,6 +426,8 @@ export type TransactionUncheckedCreateInput = {
   groupId?: string | null
   recurringTransactionId?: string | null
   responsibleUserId: string
+  installmentPlanId?: string | null
+  installmentNumber?: number | null
   attachment?: Prisma.AttachmentUncheckedCreateNestedOneWithoutTransactionInput
   split?: Prisma.SplitUncheckedCreateNestedOneWithoutTransactionInput
 }
@@ -406,10 +441,12 @@ export type TransactionUpdateInput = {
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  installmentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   category?: Prisma.CategoryUpdateOneWithoutTransactionsNestedInput
   group?: Prisma.GroupUpdateOneWithoutTransactionsNestedInput
   recurringTransaction?: Prisma.RecurringTransactionUpdateOneWithoutTransactionsNestedInput
   responsibleUser?: Prisma.UserUpdateOneRequiredWithoutTransactionsResponsibleNestedInput
+  installmentPlan?: Prisma.InstallmentPlanUpdateOneWithoutTransactionsNestedInput
   attachment?: Prisma.AttachmentUpdateOneWithoutTransactionNestedInput
   split?: Prisma.SplitUpdateOneWithoutTransactionNestedInput
 }
@@ -427,6 +464,8 @@ export type TransactionUncheckedUpdateInput = {
   groupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recurringTransactionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsibleUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  installmentPlanId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  installmentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   attachment?: Prisma.AttachmentUncheckedUpdateOneWithoutTransactionNestedInput
   split?: Prisma.SplitUncheckedUpdateOneWithoutTransactionNestedInput
 }
@@ -444,6 +483,8 @@ export type TransactionCreateManyInput = {
   groupId?: string | null
   recurringTransactionId?: string | null
   responsibleUserId: string
+  installmentPlanId?: string | null
+  installmentNumber?: number | null
 }
 
 export type TransactionUpdateManyMutationInput = {
@@ -455,6 +496,7 @@ export type TransactionUpdateManyMutationInput = {
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  installmentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type TransactionUncheckedUpdateManyInput = {
@@ -470,6 +512,8 @@ export type TransactionUncheckedUpdateManyInput = {
   groupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recurringTransactionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsibleUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  installmentPlanId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  installmentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type TransactionListRelationFilter = {
@@ -495,10 +539,13 @@ export type TransactionCountOrderByAggregateInput = {
   groupId?: Prisma.SortOrder
   recurringTransactionId?: Prisma.SortOrder
   responsibleUserId?: Prisma.SortOrder
+  installmentPlanId?: Prisma.SortOrder
+  installmentNumber?: Prisma.SortOrder
 }
 
 export type TransactionAvgOrderByAggregateInput = {
   amount?: Prisma.SortOrder
+  installmentNumber?: Prisma.SortOrder
 }
 
 export type TransactionMaxOrderByAggregateInput = {
@@ -514,6 +561,8 @@ export type TransactionMaxOrderByAggregateInput = {
   groupId?: Prisma.SortOrder
   recurringTransactionId?: Prisma.SortOrder
   responsibleUserId?: Prisma.SortOrder
+  installmentPlanId?: Prisma.SortOrder
+  installmentNumber?: Prisma.SortOrder
 }
 
 export type TransactionMinOrderByAggregateInput = {
@@ -529,10 +578,13 @@ export type TransactionMinOrderByAggregateInput = {
   groupId?: Prisma.SortOrder
   recurringTransactionId?: Prisma.SortOrder
   responsibleUserId?: Prisma.SortOrder
+  installmentPlanId?: Prisma.SortOrder
+  installmentNumber?: Prisma.SortOrder
 }
 
 export type TransactionSumOrderByAggregateInput = {
   amount?: Prisma.SortOrder
+  installmentNumber?: Prisma.SortOrder
 }
 
 export type TransactionScalarRelationFilter = {
@@ -683,6 +735,56 @@ export type DecimalFieldUpdateOperationsInput = {
   divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
+export type NullableIntFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
+export type TransactionCreateNestedManyWithoutInstallmentPlanInput = {
+  create?: Prisma.XOR<Prisma.TransactionCreateWithoutInstallmentPlanInput, Prisma.TransactionUncheckedCreateWithoutInstallmentPlanInput> | Prisma.TransactionCreateWithoutInstallmentPlanInput[] | Prisma.TransactionUncheckedCreateWithoutInstallmentPlanInput[]
+  connectOrCreate?: Prisma.TransactionCreateOrConnectWithoutInstallmentPlanInput | Prisma.TransactionCreateOrConnectWithoutInstallmentPlanInput[]
+  createMany?: Prisma.TransactionCreateManyInstallmentPlanInputEnvelope
+  connect?: Prisma.TransactionWhereUniqueInput | Prisma.TransactionWhereUniqueInput[]
+}
+
+export type TransactionUncheckedCreateNestedManyWithoutInstallmentPlanInput = {
+  create?: Prisma.XOR<Prisma.TransactionCreateWithoutInstallmentPlanInput, Prisma.TransactionUncheckedCreateWithoutInstallmentPlanInput> | Prisma.TransactionCreateWithoutInstallmentPlanInput[] | Prisma.TransactionUncheckedCreateWithoutInstallmentPlanInput[]
+  connectOrCreate?: Prisma.TransactionCreateOrConnectWithoutInstallmentPlanInput | Prisma.TransactionCreateOrConnectWithoutInstallmentPlanInput[]
+  createMany?: Prisma.TransactionCreateManyInstallmentPlanInputEnvelope
+  connect?: Prisma.TransactionWhereUniqueInput | Prisma.TransactionWhereUniqueInput[]
+}
+
+export type TransactionUpdateManyWithoutInstallmentPlanNestedInput = {
+  create?: Prisma.XOR<Prisma.TransactionCreateWithoutInstallmentPlanInput, Prisma.TransactionUncheckedCreateWithoutInstallmentPlanInput> | Prisma.TransactionCreateWithoutInstallmentPlanInput[] | Prisma.TransactionUncheckedCreateWithoutInstallmentPlanInput[]
+  connectOrCreate?: Prisma.TransactionCreateOrConnectWithoutInstallmentPlanInput | Prisma.TransactionCreateOrConnectWithoutInstallmentPlanInput[]
+  upsert?: Prisma.TransactionUpsertWithWhereUniqueWithoutInstallmentPlanInput | Prisma.TransactionUpsertWithWhereUniqueWithoutInstallmentPlanInput[]
+  createMany?: Prisma.TransactionCreateManyInstallmentPlanInputEnvelope
+  set?: Prisma.TransactionWhereUniqueInput | Prisma.TransactionWhereUniqueInput[]
+  disconnect?: Prisma.TransactionWhereUniqueInput | Prisma.TransactionWhereUniqueInput[]
+  delete?: Prisma.TransactionWhereUniqueInput | Prisma.TransactionWhereUniqueInput[]
+  connect?: Prisma.TransactionWhereUniqueInput | Prisma.TransactionWhereUniqueInput[]
+  update?: Prisma.TransactionUpdateWithWhereUniqueWithoutInstallmentPlanInput | Prisma.TransactionUpdateWithWhereUniqueWithoutInstallmentPlanInput[]
+  updateMany?: Prisma.TransactionUpdateManyWithWhereWithoutInstallmentPlanInput | Prisma.TransactionUpdateManyWithWhereWithoutInstallmentPlanInput[]
+  deleteMany?: Prisma.TransactionScalarWhereInput | Prisma.TransactionScalarWhereInput[]
+}
+
+export type TransactionUncheckedUpdateManyWithoutInstallmentPlanNestedInput = {
+  create?: Prisma.XOR<Prisma.TransactionCreateWithoutInstallmentPlanInput, Prisma.TransactionUncheckedCreateWithoutInstallmentPlanInput> | Prisma.TransactionCreateWithoutInstallmentPlanInput[] | Prisma.TransactionUncheckedCreateWithoutInstallmentPlanInput[]
+  connectOrCreate?: Prisma.TransactionCreateOrConnectWithoutInstallmentPlanInput | Prisma.TransactionCreateOrConnectWithoutInstallmentPlanInput[]
+  upsert?: Prisma.TransactionUpsertWithWhereUniqueWithoutInstallmentPlanInput | Prisma.TransactionUpsertWithWhereUniqueWithoutInstallmentPlanInput[]
+  createMany?: Prisma.TransactionCreateManyInstallmentPlanInputEnvelope
+  set?: Prisma.TransactionWhereUniqueInput | Prisma.TransactionWhereUniqueInput[]
+  disconnect?: Prisma.TransactionWhereUniqueInput | Prisma.TransactionWhereUniqueInput[]
+  delete?: Prisma.TransactionWhereUniqueInput | Prisma.TransactionWhereUniqueInput[]
+  connect?: Prisma.TransactionWhereUniqueInput | Prisma.TransactionWhereUniqueInput[]
+  update?: Prisma.TransactionUpdateWithWhereUniqueWithoutInstallmentPlanInput | Prisma.TransactionUpdateWithWhereUniqueWithoutInstallmentPlanInput[]
+  updateMany?: Prisma.TransactionUpdateManyWithWhereWithoutInstallmentPlanInput | Prisma.TransactionUpdateManyWithWhereWithoutInstallmentPlanInput[]
+  deleteMany?: Prisma.TransactionScalarWhereInput | Prisma.TransactionScalarWhereInput[]
+}
+
 export type TransactionCreateNestedOneWithoutSplitInput = {
   create?: Prisma.XOR<Prisma.TransactionCreateWithoutSplitInput, Prisma.TransactionUncheckedCreateWithoutSplitInput>
   connectOrCreate?: Prisma.TransactionCreateOrConnectWithoutSplitInput
@@ -764,9 +866,11 @@ export type TransactionCreateWithoutResponsibleUserInput = {
   note?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  installmentNumber?: number | null
   category?: Prisma.CategoryCreateNestedOneWithoutTransactionsInput
   group?: Prisma.GroupCreateNestedOneWithoutTransactionsInput
   recurringTransaction?: Prisma.RecurringTransactionCreateNestedOneWithoutTransactionsInput
+  installmentPlan?: Prisma.InstallmentPlanCreateNestedOneWithoutTransactionsInput
   attachment?: Prisma.AttachmentCreateNestedOneWithoutTransactionInput
   split?: Prisma.SplitCreateNestedOneWithoutTransactionInput
 }
@@ -783,6 +887,8 @@ export type TransactionUncheckedCreateWithoutResponsibleUserInput = {
   categoryId?: string | null
   groupId?: string | null
   recurringTransactionId?: string | null
+  installmentPlanId?: string | null
+  installmentNumber?: number | null
   attachment?: Prisma.AttachmentUncheckedCreateNestedOneWithoutTransactionInput
   split?: Prisma.SplitUncheckedCreateNestedOneWithoutTransactionInput
 }
@@ -829,6 +935,8 @@ export type TransactionScalarWhereInput = {
   groupId?: Prisma.UuidNullableFilter<"Transaction"> | string | null
   recurringTransactionId?: Prisma.UuidNullableFilter<"Transaction"> | string | null
   responsibleUserId?: Prisma.UuidFilter<"Transaction"> | string
+  installmentPlanId?: Prisma.UuidNullableFilter<"Transaction"> | string | null
+  installmentNumber?: Prisma.IntNullableFilter<"Transaction"> | number | null
 }
 
 export type TransactionCreateWithoutGroupInput = {
@@ -840,9 +948,11 @@ export type TransactionCreateWithoutGroupInput = {
   note?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  installmentNumber?: number | null
   category?: Prisma.CategoryCreateNestedOneWithoutTransactionsInput
   recurringTransaction?: Prisma.RecurringTransactionCreateNestedOneWithoutTransactionsInput
   responsibleUser: Prisma.UserCreateNestedOneWithoutTransactionsResponsibleInput
+  installmentPlan?: Prisma.InstallmentPlanCreateNestedOneWithoutTransactionsInput
   attachment?: Prisma.AttachmentCreateNestedOneWithoutTransactionInput
   split?: Prisma.SplitCreateNestedOneWithoutTransactionInput
 }
@@ -859,6 +969,8 @@ export type TransactionUncheckedCreateWithoutGroupInput = {
   categoryId?: string | null
   recurringTransactionId?: string | null
   responsibleUserId: string
+  installmentPlanId?: string | null
+  installmentNumber?: number | null
   attachment?: Prisma.AttachmentUncheckedCreateNestedOneWithoutTransactionInput
   split?: Prisma.SplitUncheckedCreateNestedOneWithoutTransactionInput
 }
@@ -898,9 +1010,11 @@ export type TransactionCreateWithoutCategoryInput = {
   note?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  installmentNumber?: number | null
   group?: Prisma.GroupCreateNestedOneWithoutTransactionsInput
   recurringTransaction?: Prisma.RecurringTransactionCreateNestedOneWithoutTransactionsInput
   responsibleUser: Prisma.UserCreateNestedOneWithoutTransactionsResponsibleInput
+  installmentPlan?: Prisma.InstallmentPlanCreateNestedOneWithoutTransactionsInput
   attachment?: Prisma.AttachmentCreateNestedOneWithoutTransactionInput
   split?: Prisma.SplitCreateNestedOneWithoutTransactionInput
 }
@@ -917,6 +1031,8 @@ export type TransactionUncheckedCreateWithoutCategoryInput = {
   groupId?: string | null
   recurringTransactionId?: string | null
   responsibleUserId: string
+  installmentPlanId?: string | null
+  installmentNumber?: number | null
   attachment?: Prisma.AttachmentUncheckedCreateNestedOneWithoutTransactionInput
   split?: Prisma.SplitUncheckedCreateNestedOneWithoutTransactionInput
 }
@@ -947,6 +1063,68 @@ export type TransactionUpdateManyWithWhereWithoutCategoryInput = {
   data: Prisma.XOR<Prisma.TransactionUpdateManyMutationInput, Prisma.TransactionUncheckedUpdateManyWithoutCategoryInput>
 }
 
+export type TransactionCreateWithoutInstallmentPlanInput = {
+  id?: string
+  type: $Enums.TransactionType
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  occurredAt: Date | string
+  description: string
+  note?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  installmentNumber?: number | null
+  category?: Prisma.CategoryCreateNestedOneWithoutTransactionsInput
+  group?: Prisma.GroupCreateNestedOneWithoutTransactionsInput
+  recurringTransaction?: Prisma.RecurringTransactionCreateNestedOneWithoutTransactionsInput
+  responsibleUser: Prisma.UserCreateNestedOneWithoutTransactionsResponsibleInput
+  attachment?: Prisma.AttachmentCreateNestedOneWithoutTransactionInput
+  split?: Prisma.SplitCreateNestedOneWithoutTransactionInput
+}
+
+export type TransactionUncheckedCreateWithoutInstallmentPlanInput = {
+  id?: string
+  type: $Enums.TransactionType
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  occurredAt: Date | string
+  description: string
+  note?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  categoryId?: string | null
+  groupId?: string | null
+  recurringTransactionId?: string | null
+  responsibleUserId: string
+  installmentNumber?: number | null
+  attachment?: Prisma.AttachmentUncheckedCreateNestedOneWithoutTransactionInput
+  split?: Prisma.SplitUncheckedCreateNestedOneWithoutTransactionInput
+}
+
+export type TransactionCreateOrConnectWithoutInstallmentPlanInput = {
+  where: Prisma.TransactionWhereUniqueInput
+  create: Prisma.XOR<Prisma.TransactionCreateWithoutInstallmentPlanInput, Prisma.TransactionUncheckedCreateWithoutInstallmentPlanInput>
+}
+
+export type TransactionCreateManyInstallmentPlanInputEnvelope = {
+  data: Prisma.TransactionCreateManyInstallmentPlanInput | Prisma.TransactionCreateManyInstallmentPlanInput[]
+  skipDuplicates?: boolean
+}
+
+export type TransactionUpsertWithWhereUniqueWithoutInstallmentPlanInput = {
+  where: Prisma.TransactionWhereUniqueInput
+  update: Prisma.XOR<Prisma.TransactionUpdateWithoutInstallmentPlanInput, Prisma.TransactionUncheckedUpdateWithoutInstallmentPlanInput>
+  create: Prisma.XOR<Prisma.TransactionCreateWithoutInstallmentPlanInput, Prisma.TransactionUncheckedCreateWithoutInstallmentPlanInput>
+}
+
+export type TransactionUpdateWithWhereUniqueWithoutInstallmentPlanInput = {
+  where: Prisma.TransactionWhereUniqueInput
+  data: Prisma.XOR<Prisma.TransactionUpdateWithoutInstallmentPlanInput, Prisma.TransactionUncheckedUpdateWithoutInstallmentPlanInput>
+}
+
+export type TransactionUpdateManyWithWhereWithoutInstallmentPlanInput = {
+  where: Prisma.TransactionScalarWhereInput
+  data: Prisma.XOR<Prisma.TransactionUpdateManyMutationInput, Prisma.TransactionUncheckedUpdateManyWithoutInstallmentPlanInput>
+}
+
 export type TransactionCreateWithoutSplitInput = {
   id?: string
   type: $Enums.TransactionType
@@ -956,10 +1134,12 @@ export type TransactionCreateWithoutSplitInput = {
   note?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  installmentNumber?: number | null
   category?: Prisma.CategoryCreateNestedOneWithoutTransactionsInput
   group?: Prisma.GroupCreateNestedOneWithoutTransactionsInput
   recurringTransaction?: Prisma.RecurringTransactionCreateNestedOneWithoutTransactionsInput
   responsibleUser: Prisma.UserCreateNestedOneWithoutTransactionsResponsibleInput
+  installmentPlan?: Prisma.InstallmentPlanCreateNestedOneWithoutTransactionsInput
   attachment?: Prisma.AttachmentCreateNestedOneWithoutTransactionInput
 }
 
@@ -976,6 +1156,8 @@ export type TransactionUncheckedCreateWithoutSplitInput = {
   groupId?: string | null
   recurringTransactionId?: string | null
   responsibleUserId: string
+  installmentPlanId?: string | null
+  installmentNumber?: number | null
   attachment?: Prisma.AttachmentUncheckedCreateNestedOneWithoutTransactionInput
 }
 
@@ -1004,10 +1186,12 @@ export type TransactionUpdateWithoutSplitInput = {
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  installmentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   category?: Prisma.CategoryUpdateOneWithoutTransactionsNestedInput
   group?: Prisma.GroupUpdateOneWithoutTransactionsNestedInput
   recurringTransaction?: Prisma.RecurringTransactionUpdateOneWithoutTransactionsNestedInput
   responsibleUser?: Prisma.UserUpdateOneRequiredWithoutTransactionsResponsibleNestedInput
+  installmentPlan?: Prisma.InstallmentPlanUpdateOneWithoutTransactionsNestedInput
   attachment?: Prisma.AttachmentUpdateOneWithoutTransactionNestedInput
 }
 
@@ -1024,6 +1208,8 @@ export type TransactionUncheckedUpdateWithoutSplitInput = {
   groupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recurringTransactionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsibleUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  installmentPlanId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  installmentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   attachment?: Prisma.AttachmentUncheckedUpdateOneWithoutTransactionNestedInput
 }
 
@@ -1036,10 +1222,12 @@ export type TransactionCreateWithoutAttachmentInput = {
   note?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  installmentNumber?: number | null
   category?: Prisma.CategoryCreateNestedOneWithoutTransactionsInput
   group?: Prisma.GroupCreateNestedOneWithoutTransactionsInput
   recurringTransaction?: Prisma.RecurringTransactionCreateNestedOneWithoutTransactionsInput
   responsibleUser: Prisma.UserCreateNestedOneWithoutTransactionsResponsibleInput
+  installmentPlan?: Prisma.InstallmentPlanCreateNestedOneWithoutTransactionsInput
   split?: Prisma.SplitCreateNestedOneWithoutTransactionInput
 }
 
@@ -1056,6 +1244,8 @@ export type TransactionUncheckedCreateWithoutAttachmentInput = {
   groupId?: string | null
   recurringTransactionId?: string | null
   responsibleUserId: string
+  installmentPlanId?: string | null
+  installmentNumber?: number | null
   split?: Prisma.SplitUncheckedCreateNestedOneWithoutTransactionInput
 }
 
@@ -1084,10 +1274,12 @@ export type TransactionUpdateWithoutAttachmentInput = {
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  installmentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   category?: Prisma.CategoryUpdateOneWithoutTransactionsNestedInput
   group?: Prisma.GroupUpdateOneWithoutTransactionsNestedInput
   recurringTransaction?: Prisma.RecurringTransactionUpdateOneWithoutTransactionsNestedInput
   responsibleUser?: Prisma.UserUpdateOneRequiredWithoutTransactionsResponsibleNestedInput
+  installmentPlan?: Prisma.InstallmentPlanUpdateOneWithoutTransactionsNestedInput
   split?: Prisma.SplitUpdateOneWithoutTransactionNestedInput
 }
 
@@ -1104,6 +1296,8 @@ export type TransactionUncheckedUpdateWithoutAttachmentInput = {
   groupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recurringTransactionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsibleUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  installmentPlanId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  installmentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   split?: Prisma.SplitUncheckedUpdateOneWithoutTransactionNestedInput
 }
 
@@ -1116,9 +1310,11 @@ export type TransactionCreateWithoutRecurringTransactionInput = {
   note?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  installmentNumber?: number | null
   category?: Prisma.CategoryCreateNestedOneWithoutTransactionsInput
   group?: Prisma.GroupCreateNestedOneWithoutTransactionsInput
   responsibleUser: Prisma.UserCreateNestedOneWithoutTransactionsResponsibleInput
+  installmentPlan?: Prisma.InstallmentPlanCreateNestedOneWithoutTransactionsInput
   attachment?: Prisma.AttachmentCreateNestedOneWithoutTransactionInput
   split?: Prisma.SplitCreateNestedOneWithoutTransactionInput
 }
@@ -1135,6 +1331,8 @@ export type TransactionUncheckedCreateWithoutRecurringTransactionInput = {
   categoryId?: string | null
   groupId?: string | null
   responsibleUserId: string
+  installmentPlanId?: string | null
+  installmentNumber?: number | null
   attachment?: Prisma.AttachmentUncheckedCreateNestedOneWithoutTransactionInput
   split?: Prisma.SplitUncheckedCreateNestedOneWithoutTransactionInput
 }
@@ -1177,6 +1375,8 @@ export type TransactionCreateManyResponsibleUserInput = {
   categoryId?: string | null
   groupId?: string | null
   recurringTransactionId?: string | null
+  installmentPlanId?: string | null
+  installmentNumber?: number | null
 }
 
 export type TransactionUpdateWithoutResponsibleUserInput = {
@@ -1188,9 +1388,11 @@ export type TransactionUpdateWithoutResponsibleUserInput = {
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  installmentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   category?: Prisma.CategoryUpdateOneWithoutTransactionsNestedInput
   group?: Prisma.GroupUpdateOneWithoutTransactionsNestedInput
   recurringTransaction?: Prisma.RecurringTransactionUpdateOneWithoutTransactionsNestedInput
+  installmentPlan?: Prisma.InstallmentPlanUpdateOneWithoutTransactionsNestedInput
   attachment?: Prisma.AttachmentUpdateOneWithoutTransactionNestedInput
   split?: Prisma.SplitUpdateOneWithoutTransactionNestedInput
 }
@@ -1207,6 +1409,8 @@ export type TransactionUncheckedUpdateWithoutResponsibleUserInput = {
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   groupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recurringTransactionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  installmentPlanId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  installmentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   attachment?: Prisma.AttachmentUncheckedUpdateOneWithoutTransactionNestedInput
   split?: Prisma.SplitUncheckedUpdateOneWithoutTransactionNestedInput
 }
@@ -1223,6 +1427,8 @@ export type TransactionUncheckedUpdateManyWithoutResponsibleUserInput = {
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   groupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recurringTransactionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  installmentPlanId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  installmentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type TransactionCreateManyGroupInput = {
@@ -1237,6 +1443,8 @@ export type TransactionCreateManyGroupInput = {
   categoryId?: string | null
   recurringTransactionId?: string | null
   responsibleUserId: string
+  installmentPlanId?: string | null
+  installmentNumber?: number | null
 }
 
 export type TransactionUpdateWithoutGroupInput = {
@@ -1248,9 +1456,11 @@ export type TransactionUpdateWithoutGroupInput = {
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  installmentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   category?: Prisma.CategoryUpdateOneWithoutTransactionsNestedInput
   recurringTransaction?: Prisma.RecurringTransactionUpdateOneWithoutTransactionsNestedInput
   responsibleUser?: Prisma.UserUpdateOneRequiredWithoutTransactionsResponsibleNestedInput
+  installmentPlan?: Prisma.InstallmentPlanUpdateOneWithoutTransactionsNestedInput
   attachment?: Prisma.AttachmentUpdateOneWithoutTransactionNestedInput
   split?: Prisma.SplitUpdateOneWithoutTransactionNestedInput
 }
@@ -1267,6 +1477,8 @@ export type TransactionUncheckedUpdateWithoutGroupInput = {
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recurringTransactionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsibleUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  installmentPlanId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  installmentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   attachment?: Prisma.AttachmentUncheckedUpdateOneWithoutTransactionNestedInput
   split?: Prisma.SplitUncheckedUpdateOneWithoutTransactionNestedInput
 }
@@ -1283,6 +1495,8 @@ export type TransactionUncheckedUpdateManyWithoutGroupInput = {
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recurringTransactionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsibleUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  installmentPlanId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  installmentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type TransactionCreateManyCategoryInput = {
@@ -1297,6 +1511,8 @@ export type TransactionCreateManyCategoryInput = {
   groupId?: string | null
   recurringTransactionId?: string | null
   responsibleUserId: string
+  installmentPlanId?: string | null
+  installmentNumber?: number | null
 }
 
 export type TransactionUpdateWithoutCategoryInput = {
@@ -1308,9 +1524,11 @@ export type TransactionUpdateWithoutCategoryInput = {
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  installmentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   group?: Prisma.GroupUpdateOneWithoutTransactionsNestedInput
   recurringTransaction?: Prisma.RecurringTransactionUpdateOneWithoutTransactionsNestedInput
   responsibleUser?: Prisma.UserUpdateOneRequiredWithoutTransactionsResponsibleNestedInput
+  installmentPlan?: Prisma.InstallmentPlanUpdateOneWithoutTransactionsNestedInput
   attachment?: Prisma.AttachmentUpdateOneWithoutTransactionNestedInput
   split?: Prisma.SplitUpdateOneWithoutTransactionNestedInput
 }
@@ -1327,6 +1545,8 @@ export type TransactionUncheckedUpdateWithoutCategoryInput = {
   groupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recurringTransactionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsibleUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  installmentPlanId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  installmentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   attachment?: Prisma.AttachmentUncheckedUpdateOneWithoutTransactionNestedInput
   split?: Prisma.SplitUncheckedUpdateOneWithoutTransactionNestedInput
 }
@@ -1343,6 +1563,76 @@ export type TransactionUncheckedUpdateManyWithoutCategoryInput = {
   groupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   recurringTransactionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsibleUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  installmentPlanId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  installmentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+}
+
+export type TransactionCreateManyInstallmentPlanInput = {
+  id?: string
+  type: $Enums.TransactionType
+  amount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  occurredAt: Date | string
+  description: string
+  note?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  categoryId?: string | null
+  groupId?: string | null
+  recurringTransactionId?: string | null
+  responsibleUserId: string
+  installmentNumber?: number | null
+}
+
+export type TransactionUpdateWithoutInstallmentPlanInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  occurredAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  installmentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  category?: Prisma.CategoryUpdateOneWithoutTransactionsNestedInput
+  group?: Prisma.GroupUpdateOneWithoutTransactionsNestedInput
+  recurringTransaction?: Prisma.RecurringTransactionUpdateOneWithoutTransactionsNestedInput
+  responsibleUser?: Prisma.UserUpdateOneRequiredWithoutTransactionsResponsibleNestedInput
+  attachment?: Prisma.AttachmentUpdateOneWithoutTransactionNestedInput
+  split?: Prisma.SplitUpdateOneWithoutTransactionNestedInput
+}
+
+export type TransactionUncheckedUpdateWithoutInstallmentPlanInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  occurredAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  groupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recurringTransactionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  responsibleUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  installmentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  attachment?: Prisma.AttachmentUncheckedUpdateOneWithoutTransactionNestedInput
+  split?: Prisma.SplitUncheckedUpdateOneWithoutTransactionNestedInput
+}
+
+export type TransactionUncheckedUpdateManyWithoutInstallmentPlanInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  occurredAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  groupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  recurringTransactionId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  responsibleUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  installmentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type TransactionCreateManyRecurringTransactionInput = {
@@ -1357,6 +1647,8 @@ export type TransactionCreateManyRecurringTransactionInput = {
   categoryId?: string | null
   groupId?: string | null
   responsibleUserId: string
+  installmentPlanId?: string | null
+  installmentNumber?: number | null
 }
 
 export type TransactionUpdateWithoutRecurringTransactionInput = {
@@ -1368,9 +1660,11 @@ export type TransactionUpdateWithoutRecurringTransactionInput = {
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  installmentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   category?: Prisma.CategoryUpdateOneWithoutTransactionsNestedInput
   group?: Prisma.GroupUpdateOneWithoutTransactionsNestedInput
   responsibleUser?: Prisma.UserUpdateOneRequiredWithoutTransactionsResponsibleNestedInput
+  installmentPlan?: Prisma.InstallmentPlanUpdateOneWithoutTransactionsNestedInput
   attachment?: Prisma.AttachmentUpdateOneWithoutTransactionNestedInput
   split?: Prisma.SplitUpdateOneWithoutTransactionNestedInput
 }
@@ -1387,6 +1681,8 @@ export type TransactionUncheckedUpdateWithoutRecurringTransactionInput = {
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   groupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsibleUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  installmentPlanId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  installmentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   attachment?: Prisma.AttachmentUncheckedUpdateOneWithoutTransactionNestedInput
   split?: Prisma.SplitUncheckedUpdateOneWithoutTransactionNestedInput
 }
@@ -1403,6 +1699,8 @@ export type TransactionUncheckedUpdateManyWithoutRecurringTransactionInput = {
   categoryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   groupId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsibleUserId?: Prisma.StringFieldUpdateOperationsInput | string
+  installmentPlanId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  installmentNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 
@@ -1420,10 +1718,13 @@ export type TransactionSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   groupId?: boolean
   recurringTransactionId?: boolean
   responsibleUserId?: boolean
+  installmentPlanId?: boolean
+  installmentNumber?: boolean
   category?: boolean | Prisma.Transaction$categoryArgs<ExtArgs>
   group?: boolean | Prisma.Transaction$groupArgs<ExtArgs>
   recurringTransaction?: boolean | Prisma.Transaction$recurringTransactionArgs<ExtArgs>
   responsibleUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  installmentPlan?: boolean | Prisma.Transaction$installmentPlanArgs<ExtArgs>
   attachment?: boolean | Prisma.Transaction$attachmentArgs<ExtArgs>
   split?: boolean | Prisma.Transaction$splitArgs<ExtArgs>
 }, ExtArgs["result"]["transaction"]>
@@ -1441,10 +1742,13 @@ export type TransactionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   groupId?: boolean
   recurringTransactionId?: boolean
   responsibleUserId?: boolean
+  installmentPlanId?: boolean
+  installmentNumber?: boolean
   category?: boolean | Prisma.Transaction$categoryArgs<ExtArgs>
   group?: boolean | Prisma.Transaction$groupArgs<ExtArgs>
   recurringTransaction?: boolean | Prisma.Transaction$recurringTransactionArgs<ExtArgs>
   responsibleUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  installmentPlan?: boolean | Prisma.Transaction$installmentPlanArgs<ExtArgs>
 }, ExtArgs["result"]["transaction"]>
 
 export type TransactionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1460,10 +1764,13 @@ export type TransactionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   groupId?: boolean
   recurringTransactionId?: boolean
   responsibleUserId?: boolean
+  installmentPlanId?: boolean
+  installmentNumber?: boolean
   category?: boolean | Prisma.Transaction$categoryArgs<ExtArgs>
   group?: boolean | Prisma.Transaction$groupArgs<ExtArgs>
   recurringTransaction?: boolean | Prisma.Transaction$recurringTransactionArgs<ExtArgs>
   responsibleUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  installmentPlan?: boolean | Prisma.Transaction$installmentPlanArgs<ExtArgs>
 }, ExtArgs["result"]["transaction"]>
 
 export type TransactionSelectScalar = {
@@ -1479,14 +1786,17 @@ export type TransactionSelectScalar = {
   groupId?: boolean
   recurringTransactionId?: boolean
   responsibleUserId?: boolean
+  installmentPlanId?: boolean
+  installmentNumber?: boolean
 }
 
-export type TransactionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "type" | "amount" | "occurredAt" | "description" | "note" | "createdAt" | "updatedAt" | "categoryId" | "groupId" | "recurringTransactionId" | "responsibleUserId", ExtArgs["result"]["transaction"]>
+export type TransactionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "type" | "amount" | "occurredAt" | "description" | "note" | "createdAt" | "updatedAt" | "categoryId" | "groupId" | "recurringTransactionId" | "responsibleUserId" | "installmentPlanId" | "installmentNumber", ExtArgs["result"]["transaction"]>
 export type TransactionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   category?: boolean | Prisma.Transaction$categoryArgs<ExtArgs>
   group?: boolean | Prisma.Transaction$groupArgs<ExtArgs>
   recurringTransaction?: boolean | Prisma.Transaction$recurringTransactionArgs<ExtArgs>
   responsibleUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  installmentPlan?: boolean | Prisma.Transaction$installmentPlanArgs<ExtArgs>
   attachment?: boolean | Prisma.Transaction$attachmentArgs<ExtArgs>
   split?: boolean | Prisma.Transaction$splitArgs<ExtArgs>
 }
@@ -1495,12 +1805,14 @@ export type TransactionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.
   group?: boolean | Prisma.Transaction$groupArgs<ExtArgs>
   recurringTransaction?: boolean | Prisma.Transaction$recurringTransactionArgs<ExtArgs>
   responsibleUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  installmentPlan?: boolean | Prisma.Transaction$installmentPlanArgs<ExtArgs>
 }
 export type TransactionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   category?: boolean | Prisma.Transaction$categoryArgs<ExtArgs>
   group?: boolean | Prisma.Transaction$groupArgs<ExtArgs>
   recurringTransaction?: boolean | Prisma.Transaction$recurringTransactionArgs<ExtArgs>
   responsibleUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  installmentPlan?: boolean | Prisma.Transaction$installmentPlanArgs<ExtArgs>
 }
 
 export type $TransactionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1510,6 +1822,7 @@ export type $TransactionPayload<ExtArgs extends runtime.Types.Extensions.Interna
     group: Prisma.$GroupPayload<ExtArgs> | null
     recurringTransaction: Prisma.$RecurringTransactionPayload<ExtArgs> | null
     responsibleUser: Prisma.$UserPayload<ExtArgs>
+    installmentPlan: Prisma.$InstallmentPlanPayload<ExtArgs> | null
     attachment: Prisma.$AttachmentPayload<ExtArgs> | null
     split: Prisma.$SplitPayload<ExtArgs> | null
   }
@@ -1526,6 +1839,8 @@ export type $TransactionPayload<ExtArgs extends runtime.Types.Extensions.Interna
     groupId: string | null
     recurringTransactionId: string | null
     responsibleUserId: string
+    installmentPlanId: string | null
+    installmentNumber: number | null
   }, ExtArgs["result"]["transaction"]>
   composites: {}
 }
@@ -1924,6 +2239,7 @@ export interface Prisma__TransactionClient<T, Null = never, ExtArgs extends runt
   group<T extends Prisma.Transaction$groupArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Transaction$groupArgs<ExtArgs>>): Prisma.Prisma__GroupClient<runtime.Types.Result.GetResult<Prisma.$GroupPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   recurringTransaction<T extends Prisma.Transaction$recurringTransactionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Transaction$recurringTransactionArgs<ExtArgs>>): Prisma.Prisma__RecurringTransactionClient<runtime.Types.Result.GetResult<Prisma.$RecurringTransactionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   responsibleUser<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  installmentPlan<T extends Prisma.Transaction$installmentPlanArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Transaction$installmentPlanArgs<ExtArgs>>): Prisma.Prisma__InstallmentPlanClient<runtime.Types.Result.GetResult<Prisma.$InstallmentPlanPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   attachment<T extends Prisma.Transaction$attachmentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Transaction$attachmentArgs<ExtArgs>>): Prisma.Prisma__AttachmentClient<runtime.Types.Result.GetResult<Prisma.$AttachmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   split<T extends Prisma.Transaction$splitArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Transaction$splitArgs<ExtArgs>>): Prisma.Prisma__SplitClient<runtime.Types.Result.GetResult<Prisma.$SplitPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
@@ -1967,6 +2283,8 @@ export interface TransactionFieldRefs {
   readonly groupId: Prisma.FieldRef<"Transaction", 'String'>
   readonly recurringTransactionId: Prisma.FieldRef<"Transaction", 'String'>
   readonly responsibleUserId: Prisma.FieldRef<"Transaction", 'String'>
+  readonly installmentPlanId: Prisma.FieldRef<"Transaction", 'String'>
+  readonly installmentNumber: Prisma.FieldRef<"Transaction", 'Int'>
 }
     
 
@@ -2422,6 +2740,25 @@ export type Transaction$recurringTransactionArgs<ExtArgs extends runtime.Types.E
    */
   include?: Prisma.RecurringTransactionInclude<ExtArgs> | null
   where?: Prisma.RecurringTransactionWhereInput
+}
+
+/**
+ * Transaction.installmentPlan
+ */
+export type Transaction$installmentPlanArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the InstallmentPlan
+   */
+  select?: Prisma.InstallmentPlanSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the InstallmentPlan
+   */
+  omit?: Prisma.InstallmentPlanOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.InstallmentPlanInclude<ExtArgs> | null
+  where?: Prisma.InstallmentPlanWhereInput
 }
 
 /**

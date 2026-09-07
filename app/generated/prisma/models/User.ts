@@ -223,6 +223,7 @@ export type UserWhereInput = {
   memberships?: Prisma.GroupMemberListRelationFilter
   payments?: Prisma.PaymentListRelationFilter
   recurringTransactions?: Prisma.RecurringTransactionListRelationFilter
+  installmentPlans?: Prisma.InstallmentPlanListRelationFilter
   splitParticipants?: Prisma.SplitParticipantListRelationFilter
   transactionsResponsible?: Prisma.TransactionListRelationFilter
 }
@@ -246,6 +247,7 @@ export type UserOrderByWithRelationInput = {
   memberships?: Prisma.GroupMemberOrderByRelationAggregateInput
   payments?: Prisma.PaymentOrderByRelationAggregateInput
   recurringTransactions?: Prisma.RecurringTransactionOrderByRelationAggregateInput
+  installmentPlans?: Prisma.InstallmentPlanOrderByRelationAggregateInput
   splitParticipants?: Prisma.SplitParticipantOrderByRelationAggregateInput
   transactionsResponsible?: Prisma.TransactionOrderByRelationAggregateInput
 }
@@ -272,6 +274,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   memberships?: Prisma.GroupMemberListRelationFilter
   payments?: Prisma.PaymentListRelationFilter
   recurringTransactions?: Prisma.RecurringTransactionListRelationFilter
+  installmentPlans?: Prisma.InstallmentPlanListRelationFilter
   splitParticipants?: Prisma.SplitParticipantListRelationFilter
   transactionsResponsible?: Prisma.TransactionListRelationFilter
 }, "id" | "email">
@@ -325,6 +328,7 @@ export type UserCreateInput = {
   memberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentCreateNestedManyWithoutPaidByInput
   recurringTransactions?: Prisma.RecurringTransactionCreateNestedManyWithoutOwnerInput
+  installmentPlans?: Prisma.InstallmentPlanCreateNestedManyWithoutResponsibleUserInput
   splitParticipants?: Prisma.SplitParticipantCreateNestedManyWithoutUserInput
   transactionsResponsible?: Prisma.TransactionCreateNestedManyWithoutResponsibleUserInput
 }
@@ -348,6 +352,7 @@ export type UserUncheckedCreateInput = {
   memberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutPaidByInput
   recurringTransactions?: Prisma.RecurringTransactionUncheckedCreateNestedManyWithoutOwnerInput
+  installmentPlans?: Prisma.InstallmentPlanUncheckedCreateNestedManyWithoutResponsibleUserInput
   splitParticipants?: Prisma.SplitParticipantUncheckedCreateNestedManyWithoutUserInput
   transactionsResponsible?: Prisma.TransactionUncheckedCreateNestedManyWithoutResponsibleUserInput
 }
@@ -371,6 +376,7 @@ export type UserUpdateInput = {
   memberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutPaidByNestedInput
   recurringTransactions?: Prisma.RecurringTransactionUpdateManyWithoutOwnerNestedInput
+  installmentPlans?: Prisma.InstallmentPlanUpdateManyWithoutResponsibleUserNestedInput
   splitParticipants?: Prisma.SplitParticipantUpdateManyWithoutUserNestedInput
   transactionsResponsible?: Prisma.TransactionUpdateManyWithoutResponsibleUserNestedInput
 }
@@ -394,6 +400,7 @@ export type UserUncheckedUpdateInput = {
   memberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutPaidByNestedInput
   recurringTransactions?: Prisma.RecurringTransactionUncheckedUpdateManyWithoutOwnerNestedInput
+  installmentPlans?: Prisma.InstallmentPlanUncheckedUpdateManyWithoutResponsibleUserNestedInput
   splitParticipants?: Prisma.SplitParticipantUncheckedUpdateManyWithoutUserNestedInput
   transactionsResponsible?: Prisma.TransactionUncheckedUpdateManyWithoutResponsibleUserNestedInput
 }
@@ -572,6 +579,20 @@ export type UserUpdateOneRequiredWithoutTransactionsResponsibleNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutTransactionsResponsibleInput, Prisma.UserUpdateWithoutTransactionsResponsibleInput>, Prisma.UserUncheckedUpdateWithoutTransactionsResponsibleInput>
 }
 
+export type UserCreateNestedOneWithoutInstallmentPlansInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutInstallmentPlansInput, Prisma.UserUncheckedCreateWithoutInstallmentPlansInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutInstallmentPlansInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutInstallmentPlansNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutInstallmentPlansInput, Prisma.UserUncheckedCreateWithoutInstallmentPlansInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutInstallmentPlansInput
+  upsert?: Prisma.UserUpsertWithoutInstallmentPlansInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutInstallmentPlansInput, Prisma.UserUpdateWithoutInstallmentPlansInput>, Prisma.UserUncheckedUpdateWithoutInstallmentPlansInput>
+}
+
 export type UserCreateNestedOneWithoutSplitParticipantsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutSplitParticipantsInput, Prisma.UserUncheckedCreateWithoutSplitParticipantsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutSplitParticipantsInput
@@ -676,6 +697,7 @@ export type UserCreateWithoutGroupsCreatedInput = {
   memberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentCreateNestedManyWithoutPaidByInput
   recurringTransactions?: Prisma.RecurringTransactionCreateNestedManyWithoutOwnerInput
+  installmentPlans?: Prisma.InstallmentPlanCreateNestedManyWithoutResponsibleUserInput
   splitParticipants?: Prisma.SplitParticipantCreateNestedManyWithoutUserInput
   transactionsResponsible?: Prisma.TransactionCreateNestedManyWithoutResponsibleUserInput
 }
@@ -698,6 +720,7 @@ export type UserUncheckedCreateWithoutGroupsCreatedInput = {
   memberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutPaidByInput
   recurringTransactions?: Prisma.RecurringTransactionUncheckedCreateNestedManyWithoutOwnerInput
+  installmentPlans?: Prisma.InstallmentPlanUncheckedCreateNestedManyWithoutResponsibleUserInput
   splitParticipants?: Prisma.SplitParticipantUncheckedCreateNestedManyWithoutUserInput
   transactionsResponsible?: Prisma.TransactionUncheckedCreateNestedManyWithoutResponsibleUserInput
 }
@@ -736,6 +759,7 @@ export type UserUpdateWithoutGroupsCreatedInput = {
   memberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutPaidByNestedInput
   recurringTransactions?: Prisma.RecurringTransactionUpdateManyWithoutOwnerNestedInput
+  installmentPlans?: Prisma.InstallmentPlanUpdateManyWithoutResponsibleUserNestedInput
   splitParticipants?: Prisma.SplitParticipantUpdateManyWithoutUserNestedInput
   transactionsResponsible?: Prisma.TransactionUpdateManyWithoutResponsibleUserNestedInput
 }
@@ -758,6 +782,7 @@ export type UserUncheckedUpdateWithoutGroupsCreatedInput = {
   memberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutPaidByNestedInput
   recurringTransactions?: Prisma.RecurringTransactionUncheckedUpdateManyWithoutOwnerNestedInput
+  installmentPlans?: Prisma.InstallmentPlanUncheckedUpdateManyWithoutResponsibleUserNestedInput
   splitParticipants?: Prisma.SplitParticipantUncheckedUpdateManyWithoutUserNestedInput
   transactionsResponsible?: Prisma.TransactionUncheckedUpdateManyWithoutResponsibleUserNestedInput
 }
@@ -780,6 +805,7 @@ export type UserCreateWithoutGroupInvitationsInput = {
   memberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentCreateNestedManyWithoutPaidByInput
   recurringTransactions?: Prisma.RecurringTransactionCreateNestedManyWithoutOwnerInput
+  installmentPlans?: Prisma.InstallmentPlanCreateNestedManyWithoutResponsibleUserInput
   splitParticipants?: Prisma.SplitParticipantCreateNestedManyWithoutUserInput
   transactionsResponsible?: Prisma.TransactionCreateNestedManyWithoutResponsibleUserInput
 }
@@ -802,6 +828,7 @@ export type UserUncheckedCreateWithoutGroupInvitationsInput = {
   memberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutPaidByInput
   recurringTransactions?: Prisma.RecurringTransactionUncheckedCreateNestedManyWithoutOwnerInput
+  installmentPlans?: Prisma.InstallmentPlanUncheckedCreateNestedManyWithoutResponsibleUserInput
   splitParticipants?: Prisma.SplitParticipantUncheckedCreateNestedManyWithoutUserInput
   transactionsResponsible?: Prisma.TransactionUncheckedCreateNestedManyWithoutResponsibleUserInput
 }
@@ -829,6 +856,7 @@ export type UserCreateWithoutMembershipsInput = {
   groupsCreated?: Prisma.GroupCreateNestedManyWithoutCreatedByInput
   payments?: Prisma.PaymentCreateNestedManyWithoutPaidByInput
   recurringTransactions?: Prisma.RecurringTransactionCreateNestedManyWithoutOwnerInput
+  installmentPlans?: Prisma.InstallmentPlanCreateNestedManyWithoutResponsibleUserInput
   splitParticipants?: Prisma.SplitParticipantCreateNestedManyWithoutUserInput
   transactionsResponsible?: Prisma.TransactionCreateNestedManyWithoutResponsibleUserInput
 }
@@ -851,6 +879,7 @@ export type UserUncheckedCreateWithoutMembershipsInput = {
   groupsCreated?: Prisma.GroupUncheckedCreateNestedManyWithoutCreatedByInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutPaidByInput
   recurringTransactions?: Prisma.RecurringTransactionUncheckedCreateNestedManyWithoutOwnerInput
+  installmentPlans?: Prisma.InstallmentPlanUncheckedCreateNestedManyWithoutResponsibleUserInput
   splitParticipants?: Prisma.SplitParticipantUncheckedCreateNestedManyWithoutUserInput
   transactionsResponsible?: Prisma.TransactionUncheckedCreateNestedManyWithoutResponsibleUserInput
 }
@@ -889,6 +918,7 @@ export type UserUpdateWithoutGroupInvitationsInput = {
   memberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutPaidByNestedInput
   recurringTransactions?: Prisma.RecurringTransactionUpdateManyWithoutOwnerNestedInput
+  installmentPlans?: Prisma.InstallmentPlanUpdateManyWithoutResponsibleUserNestedInput
   splitParticipants?: Prisma.SplitParticipantUpdateManyWithoutUserNestedInput
   transactionsResponsible?: Prisma.TransactionUpdateManyWithoutResponsibleUserNestedInput
 }
@@ -911,6 +941,7 @@ export type UserUncheckedUpdateWithoutGroupInvitationsInput = {
   memberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutPaidByNestedInput
   recurringTransactions?: Prisma.RecurringTransactionUncheckedUpdateManyWithoutOwnerNestedInput
+  installmentPlans?: Prisma.InstallmentPlanUncheckedUpdateManyWithoutResponsibleUserNestedInput
   splitParticipants?: Prisma.SplitParticipantUncheckedUpdateManyWithoutUserNestedInput
   transactionsResponsible?: Prisma.TransactionUncheckedUpdateManyWithoutResponsibleUserNestedInput
 }
@@ -944,6 +975,7 @@ export type UserUpdateWithoutMembershipsInput = {
   groupsCreated?: Prisma.GroupUpdateManyWithoutCreatedByNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutPaidByNestedInput
   recurringTransactions?: Prisma.RecurringTransactionUpdateManyWithoutOwnerNestedInput
+  installmentPlans?: Prisma.InstallmentPlanUpdateManyWithoutResponsibleUserNestedInput
   splitParticipants?: Prisma.SplitParticipantUpdateManyWithoutUserNestedInput
   transactionsResponsible?: Prisma.TransactionUpdateManyWithoutResponsibleUserNestedInput
 }
@@ -966,6 +998,7 @@ export type UserUncheckedUpdateWithoutMembershipsInput = {
   groupsCreated?: Prisma.GroupUncheckedUpdateManyWithoutCreatedByNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutPaidByNestedInput
   recurringTransactions?: Prisma.RecurringTransactionUncheckedUpdateManyWithoutOwnerNestedInput
+  installmentPlans?: Prisma.InstallmentPlanUncheckedUpdateManyWithoutResponsibleUserNestedInput
   splitParticipants?: Prisma.SplitParticipantUncheckedUpdateManyWithoutUserNestedInput
   transactionsResponsible?: Prisma.TransactionUncheckedUpdateManyWithoutResponsibleUserNestedInput
 }
@@ -988,6 +1021,7 @@ export type UserCreateWithoutCategoriesInput = {
   memberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentCreateNestedManyWithoutPaidByInput
   recurringTransactions?: Prisma.RecurringTransactionCreateNestedManyWithoutOwnerInput
+  installmentPlans?: Prisma.InstallmentPlanCreateNestedManyWithoutResponsibleUserInput
   splitParticipants?: Prisma.SplitParticipantCreateNestedManyWithoutUserInput
   transactionsResponsible?: Prisma.TransactionCreateNestedManyWithoutResponsibleUserInput
 }
@@ -1010,6 +1044,7 @@ export type UserUncheckedCreateWithoutCategoriesInput = {
   memberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutPaidByInput
   recurringTransactions?: Prisma.RecurringTransactionUncheckedCreateNestedManyWithoutOwnerInput
+  installmentPlans?: Prisma.InstallmentPlanUncheckedCreateNestedManyWithoutResponsibleUserInput
   splitParticipants?: Prisma.SplitParticipantUncheckedCreateNestedManyWithoutUserInput
   transactionsResponsible?: Prisma.TransactionUncheckedCreateNestedManyWithoutResponsibleUserInput
 }
@@ -1048,6 +1083,7 @@ export type UserUpdateWithoutCategoriesInput = {
   memberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutPaidByNestedInput
   recurringTransactions?: Prisma.RecurringTransactionUpdateManyWithoutOwnerNestedInput
+  installmentPlans?: Prisma.InstallmentPlanUpdateManyWithoutResponsibleUserNestedInput
   splitParticipants?: Prisma.SplitParticipantUpdateManyWithoutUserNestedInput
   transactionsResponsible?: Prisma.TransactionUpdateManyWithoutResponsibleUserNestedInput
 }
@@ -1070,6 +1106,7 @@ export type UserUncheckedUpdateWithoutCategoriesInput = {
   memberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutPaidByNestedInput
   recurringTransactions?: Prisma.RecurringTransactionUncheckedUpdateManyWithoutOwnerNestedInput
+  installmentPlans?: Prisma.InstallmentPlanUncheckedUpdateManyWithoutResponsibleUserNestedInput
   splitParticipants?: Prisma.SplitParticipantUncheckedUpdateManyWithoutUserNestedInput
   transactionsResponsible?: Prisma.TransactionUncheckedUpdateManyWithoutResponsibleUserNestedInput
 }
@@ -1093,6 +1130,7 @@ export type UserCreateWithoutTransactionsResponsibleInput = {
   memberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentCreateNestedManyWithoutPaidByInput
   recurringTransactions?: Prisma.RecurringTransactionCreateNestedManyWithoutOwnerInput
+  installmentPlans?: Prisma.InstallmentPlanCreateNestedManyWithoutResponsibleUserInput
   splitParticipants?: Prisma.SplitParticipantCreateNestedManyWithoutUserInput
 }
 
@@ -1115,6 +1153,7 @@ export type UserUncheckedCreateWithoutTransactionsResponsibleInput = {
   memberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutPaidByInput
   recurringTransactions?: Prisma.RecurringTransactionUncheckedCreateNestedManyWithoutOwnerInput
+  installmentPlans?: Prisma.InstallmentPlanUncheckedCreateNestedManyWithoutResponsibleUserInput
   splitParticipants?: Prisma.SplitParticipantUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -1153,6 +1192,7 @@ export type UserUpdateWithoutTransactionsResponsibleInput = {
   memberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutPaidByNestedInput
   recurringTransactions?: Prisma.RecurringTransactionUpdateManyWithoutOwnerNestedInput
+  installmentPlans?: Prisma.InstallmentPlanUpdateManyWithoutResponsibleUserNestedInput
   splitParticipants?: Prisma.SplitParticipantUpdateManyWithoutUserNestedInput
 }
 
@@ -1175,7 +1215,116 @@ export type UserUncheckedUpdateWithoutTransactionsResponsibleInput = {
   memberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutPaidByNestedInput
   recurringTransactions?: Prisma.RecurringTransactionUncheckedUpdateManyWithoutOwnerNestedInput
+  installmentPlans?: Prisma.InstallmentPlanUncheckedUpdateManyWithoutResponsibleUserNestedInput
   splitParticipants?: Prisma.SplitParticipantUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutInstallmentPlansInput = {
+  id?: string
+  firstName: string
+  lastName: string
+  phone?: string | null
+  email: string
+  role?: $Enums.UserRole
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  attachments?: Prisma.AttachmentCreateNestedManyWithoutUploadedByInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutCreatedByInput
+  goalContributions?: Prisma.GoalContributionCreateNestedManyWithoutUserInput
+  goals?: Prisma.GoalCreateNestedManyWithoutUserInput
+  groupInvitations?: Prisma.GroupMemberCreateNestedManyWithoutInvitedByInput
+  groupsCreated?: Prisma.GroupCreateNestedManyWithoutCreatedByInput
+  memberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutPaidByInput
+  recurringTransactions?: Prisma.RecurringTransactionCreateNestedManyWithoutOwnerInput
+  splitParticipants?: Prisma.SplitParticipantCreateNestedManyWithoutUserInput
+  transactionsResponsible?: Prisma.TransactionCreateNestedManyWithoutResponsibleUserInput
+}
+
+export type UserUncheckedCreateWithoutInstallmentPlansInput = {
+  id?: string
+  firstName: string
+  lastName: string
+  phone?: string | null
+  email: string
+  role?: $Enums.UserRole
+  mustChangePassword?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  attachments?: Prisma.AttachmentUncheckedCreateNestedManyWithoutUploadedByInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutCreatedByInput
+  goalContributions?: Prisma.GoalContributionUncheckedCreateNestedManyWithoutUserInput
+  goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
+  groupInvitations?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutInvitedByInput
+  groupsCreated?: Prisma.GroupUncheckedCreateNestedManyWithoutCreatedByInput
+  memberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutPaidByInput
+  recurringTransactions?: Prisma.RecurringTransactionUncheckedCreateNestedManyWithoutOwnerInput
+  splitParticipants?: Prisma.SplitParticipantUncheckedCreateNestedManyWithoutUserInput
+  transactionsResponsible?: Prisma.TransactionUncheckedCreateNestedManyWithoutResponsibleUserInput
+}
+
+export type UserCreateOrConnectWithoutInstallmentPlansInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutInstallmentPlansInput, Prisma.UserUncheckedCreateWithoutInstallmentPlansInput>
+}
+
+export type UserUpsertWithoutInstallmentPlansInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutInstallmentPlansInput, Prisma.UserUncheckedUpdateWithoutInstallmentPlansInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutInstallmentPlansInput, Prisma.UserUncheckedCreateWithoutInstallmentPlansInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutInstallmentPlansInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutInstallmentPlansInput, Prisma.UserUncheckedUpdateWithoutInstallmentPlansInput>
+}
+
+export type UserUpdateWithoutInstallmentPlansInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  attachments?: Prisma.AttachmentUpdateManyWithoutUploadedByNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutCreatedByNestedInput
+  goalContributions?: Prisma.GoalContributionUpdateManyWithoutUserNestedInput
+  goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
+  groupInvitations?: Prisma.GroupMemberUpdateManyWithoutInvitedByNestedInput
+  groupsCreated?: Prisma.GroupUpdateManyWithoutCreatedByNestedInput
+  memberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutPaidByNestedInput
+  recurringTransactions?: Prisma.RecurringTransactionUpdateManyWithoutOwnerNestedInput
+  splitParticipants?: Prisma.SplitParticipantUpdateManyWithoutUserNestedInput
+  transactionsResponsible?: Prisma.TransactionUpdateManyWithoutResponsibleUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutInstallmentPlansInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  mustChangePassword?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  attachments?: Prisma.AttachmentUncheckedUpdateManyWithoutUploadedByNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutCreatedByNestedInput
+  goalContributions?: Prisma.GoalContributionUncheckedUpdateManyWithoutUserNestedInput
+  goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
+  groupInvitations?: Prisma.GroupMemberUncheckedUpdateManyWithoutInvitedByNestedInput
+  groupsCreated?: Prisma.GroupUncheckedUpdateManyWithoutCreatedByNestedInput
+  memberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutPaidByNestedInput
+  recurringTransactions?: Prisma.RecurringTransactionUncheckedUpdateManyWithoutOwnerNestedInput
+  splitParticipants?: Prisma.SplitParticipantUncheckedUpdateManyWithoutUserNestedInput
+  transactionsResponsible?: Prisma.TransactionUncheckedUpdateManyWithoutResponsibleUserNestedInput
 }
 
 export type UserCreateWithoutSplitParticipantsInput = {
@@ -1197,6 +1346,7 @@ export type UserCreateWithoutSplitParticipantsInput = {
   memberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentCreateNestedManyWithoutPaidByInput
   recurringTransactions?: Prisma.RecurringTransactionCreateNestedManyWithoutOwnerInput
+  installmentPlans?: Prisma.InstallmentPlanCreateNestedManyWithoutResponsibleUserInput
   transactionsResponsible?: Prisma.TransactionCreateNestedManyWithoutResponsibleUserInput
 }
 
@@ -1219,6 +1369,7 @@ export type UserUncheckedCreateWithoutSplitParticipantsInput = {
   memberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutPaidByInput
   recurringTransactions?: Prisma.RecurringTransactionUncheckedCreateNestedManyWithoutOwnerInput
+  installmentPlans?: Prisma.InstallmentPlanUncheckedCreateNestedManyWithoutResponsibleUserInput
   transactionsResponsible?: Prisma.TransactionUncheckedCreateNestedManyWithoutResponsibleUserInput
 }
 
@@ -1257,6 +1408,7 @@ export type UserUpdateWithoutSplitParticipantsInput = {
   memberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutPaidByNestedInput
   recurringTransactions?: Prisma.RecurringTransactionUpdateManyWithoutOwnerNestedInput
+  installmentPlans?: Prisma.InstallmentPlanUpdateManyWithoutResponsibleUserNestedInput
   transactionsResponsible?: Prisma.TransactionUpdateManyWithoutResponsibleUserNestedInput
 }
 
@@ -1279,6 +1431,7 @@ export type UserUncheckedUpdateWithoutSplitParticipantsInput = {
   memberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutPaidByNestedInput
   recurringTransactions?: Prisma.RecurringTransactionUncheckedUpdateManyWithoutOwnerNestedInput
+  installmentPlans?: Prisma.InstallmentPlanUncheckedUpdateManyWithoutResponsibleUserNestedInput
   transactionsResponsible?: Prisma.TransactionUncheckedUpdateManyWithoutResponsibleUserNestedInput
 }
 
@@ -1300,6 +1453,7 @@ export type UserCreateWithoutPaymentsInput = {
   groupsCreated?: Prisma.GroupCreateNestedManyWithoutCreatedByInput
   memberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   recurringTransactions?: Prisma.RecurringTransactionCreateNestedManyWithoutOwnerInput
+  installmentPlans?: Prisma.InstallmentPlanCreateNestedManyWithoutResponsibleUserInput
   splitParticipants?: Prisma.SplitParticipantCreateNestedManyWithoutUserInput
   transactionsResponsible?: Prisma.TransactionCreateNestedManyWithoutResponsibleUserInput
 }
@@ -1322,6 +1476,7 @@ export type UserUncheckedCreateWithoutPaymentsInput = {
   groupsCreated?: Prisma.GroupUncheckedCreateNestedManyWithoutCreatedByInput
   memberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   recurringTransactions?: Prisma.RecurringTransactionUncheckedCreateNestedManyWithoutOwnerInput
+  installmentPlans?: Prisma.InstallmentPlanUncheckedCreateNestedManyWithoutResponsibleUserInput
   splitParticipants?: Prisma.SplitParticipantUncheckedCreateNestedManyWithoutUserInput
   transactionsResponsible?: Prisma.TransactionUncheckedCreateNestedManyWithoutResponsibleUserInput
 }
@@ -1360,6 +1515,7 @@ export type UserUpdateWithoutPaymentsInput = {
   groupsCreated?: Prisma.GroupUpdateManyWithoutCreatedByNestedInput
   memberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   recurringTransactions?: Prisma.RecurringTransactionUpdateManyWithoutOwnerNestedInput
+  installmentPlans?: Prisma.InstallmentPlanUpdateManyWithoutResponsibleUserNestedInput
   splitParticipants?: Prisma.SplitParticipantUpdateManyWithoutUserNestedInput
   transactionsResponsible?: Prisma.TransactionUpdateManyWithoutResponsibleUserNestedInput
 }
@@ -1382,6 +1538,7 @@ export type UserUncheckedUpdateWithoutPaymentsInput = {
   groupsCreated?: Prisma.GroupUncheckedUpdateManyWithoutCreatedByNestedInput
   memberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   recurringTransactions?: Prisma.RecurringTransactionUncheckedUpdateManyWithoutOwnerNestedInput
+  installmentPlans?: Prisma.InstallmentPlanUncheckedUpdateManyWithoutResponsibleUserNestedInput
   splitParticipants?: Prisma.SplitParticipantUncheckedUpdateManyWithoutUserNestedInput
   transactionsResponsible?: Prisma.TransactionUncheckedUpdateManyWithoutResponsibleUserNestedInput
 }
@@ -1404,6 +1561,7 @@ export type UserCreateWithoutGoalsInput = {
   memberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentCreateNestedManyWithoutPaidByInput
   recurringTransactions?: Prisma.RecurringTransactionCreateNestedManyWithoutOwnerInput
+  installmentPlans?: Prisma.InstallmentPlanCreateNestedManyWithoutResponsibleUserInput
   splitParticipants?: Prisma.SplitParticipantCreateNestedManyWithoutUserInput
   transactionsResponsible?: Prisma.TransactionCreateNestedManyWithoutResponsibleUserInput
 }
@@ -1426,6 +1584,7 @@ export type UserUncheckedCreateWithoutGoalsInput = {
   memberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutPaidByInput
   recurringTransactions?: Prisma.RecurringTransactionUncheckedCreateNestedManyWithoutOwnerInput
+  installmentPlans?: Prisma.InstallmentPlanUncheckedCreateNestedManyWithoutResponsibleUserInput
   splitParticipants?: Prisma.SplitParticipantUncheckedCreateNestedManyWithoutUserInput
   transactionsResponsible?: Prisma.TransactionUncheckedCreateNestedManyWithoutResponsibleUserInput
 }
@@ -1464,6 +1623,7 @@ export type UserUpdateWithoutGoalsInput = {
   memberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutPaidByNestedInput
   recurringTransactions?: Prisma.RecurringTransactionUpdateManyWithoutOwnerNestedInput
+  installmentPlans?: Prisma.InstallmentPlanUpdateManyWithoutResponsibleUserNestedInput
   splitParticipants?: Prisma.SplitParticipantUpdateManyWithoutUserNestedInput
   transactionsResponsible?: Prisma.TransactionUpdateManyWithoutResponsibleUserNestedInput
 }
@@ -1486,6 +1646,7 @@ export type UserUncheckedUpdateWithoutGoalsInput = {
   memberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutPaidByNestedInput
   recurringTransactions?: Prisma.RecurringTransactionUncheckedUpdateManyWithoutOwnerNestedInput
+  installmentPlans?: Prisma.InstallmentPlanUncheckedUpdateManyWithoutResponsibleUserNestedInput
   splitParticipants?: Prisma.SplitParticipantUncheckedUpdateManyWithoutUserNestedInput
   transactionsResponsible?: Prisma.TransactionUncheckedUpdateManyWithoutResponsibleUserNestedInput
 }
@@ -1508,6 +1669,7 @@ export type UserCreateWithoutGoalContributionsInput = {
   memberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentCreateNestedManyWithoutPaidByInput
   recurringTransactions?: Prisma.RecurringTransactionCreateNestedManyWithoutOwnerInput
+  installmentPlans?: Prisma.InstallmentPlanCreateNestedManyWithoutResponsibleUserInput
   splitParticipants?: Prisma.SplitParticipantCreateNestedManyWithoutUserInput
   transactionsResponsible?: Prisma.TransactionCreateNestedManyWithoutResponsibleUserInput
 }
@@ -1530,6 +1692,7 @@ export type UserUncheckedCreateWithoutGoalContributionsInput = {
   memberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutPaidByInput
   recurringTransactions?: Prisma.RecurringTransactionUncheckedCreateNestedManyWithoutOwnerInput
+  installmentPlans?: Prisma.InstallmentPlanUncheckedCreateNestedManyWithoutResponsibleUserInput
   splitParticipants?: Prisma.SplitParticipantUncheckedCreateNestedManyWithoutUserInput
   transactionsResponsible?: Prisma.TransactionUncheckedCreateNestedManyWithoutResponsibleUserInput
 }
@@ -1568,6 +1731,7 @@ export type UserUpdateWithoutGoalContributionsInput = {
   memberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutPaidByNestedInput
   recurringTransactions?: Prisma.RecurringTransactionUpdateManyWithoutOwnerNestedInput
+  installmentPlans?: Prisma.InstallmentPlanUpdateManyWithoutResponsibleUserNestedInput
   splitParticipants?: Prisma.SplitParticipantUpdateManyWithoutUserNestedInput
   transactionsResponsible?: Prisma.TransactionUpdateManyWithoutResponsibleUserNestedInput
 }
@@ -1590,6 +1754,7 @@ export type UserUncheckedUpdateWithoutGoalContributionsInput = {
   memberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutPaidByNestedInput
   recurringTransactions?: Prisma.RecurringTransactionUncheckedUpdateManyWithoutOwnerNestedInput
+  installmentPlans?: Prisma.InstallmentPlanUncheckedUpdateManyWithoutResponsibleUserNestedInput
   splitParticipants?: Prisma.SplitParticipantUncheckedUpdateManyWithoutUserNestedInput
   transactionsResponsible?: Prisma.TransactionUncheckedUpdateManyWithoutResponsibleUserNestedInput
 }
@@ -1612,6 +1777,7 @@ export type UserCreateWithoutAttachmentsInput = {
   memberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentCreateNestedManyWithoutPaidByInput
   recurringTransactions?: Prisma.RecurringTransactionCreateNestedManyWithoutOwnerInput
+  installmentPlans?: Prisma.InstallmentPlanCreateNestedManyWithoutResponsibleUserInput
   splitParticipants?: Prisma.SplitParticipantCreateNestedManyWithoutUserInput
   transactionsResponsible?: Prisma.TransactionCreateNestedManyWithoutResponsibleUserInput
 }
@@ -1634,6 +1800,7 @@ export type UserUncheckedCreateWithoutAttachmentsInput = {
   memberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutPaidByInput
   recurringTransactions?: Prisma.RecurringTransactionUncheckedCreateNestedManyWithoutOwnerInput
+  installmentPlans?: Prisma.InstallmentPlanUncheckedCreateNestedManyWithoutResponsibleUserInput
   splitParticipants?: Prisma.SplitParticipantUncheckedCreateNestedManyWithoutUserInput
   transactionsResponsible?: Prisma.TransactionUncheckedCreateNestedManyWithoutResponsibleUserInput
 }
@@ -1672,6 +1839,7 @@ export type UserUpdateWithoutAttachmentsInput = {
   memberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutPaidByNestedInput
   recurringTransactions?: Prisma.RecurringTransactionUpdateManyWithoutOwnerNestedInput
+  installmentPlans?: Prisma.InstallmentPlanUpdateManyWithoutResponsibleUserNestedInput
   splitParticipants?: Prisma.SplitParticipantUpdateManyWithoutUserNestedInput
   transactionsResponsible?: Prisma.TransactionUpdateManyWithoutResponsibleUserNestedInput
 }
@@ -1694,6 +1862,7 @@ export type UserUncheckedUpdateWithoutAttachmentsInput = {
   memberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutPaidByNestedInput
   recurringTransactions?: Prisma.RecurringTransactionUncheckedUpdateManyWithoutOwnerNestedInput
+  installmentPlans?: Prisma.InstallmentPlanUncheckedUpdateManyWithoutResponsibleUserNestedInput
   splitParticipants?: Prisma.SplitParticipantUncheckedUpdateManyWithoutUserNestedInput
   transactionsResponsible?: Prisma.TransactionUncheckedUpdateManyWithoutResponsibleUserNestedInput
 }
@@ -1716,6 +1885,7 @@ export type UserCreateWithoutRecurringTransactionsInput = {
   groupsCreated?: Prisma.GroupCreateNestedManyWithoutCreatedByInput
   memberships?: Prisma.GroupMemberCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentCreateNestedManyWithoutPaidByInput
+  installmentPlans?: Prisma.InstallmentPlanCreateNestedManyWithoutResponsibleUserInput
   splitParticipants?: Prisma.SplitParticipantCreateNestedManyWithoutUserInput
   transactionsResponsible?: Prisma.TransactionCreateNestedManyWithoutResponsibleUserInput
 }
@@ -1738,6 +1908,7 @@ export type UserUncheckedCreateWithoutRecurringTransactionsInput = {
   groupsCreated?: Prisma.GroupUncheckedCreateNestedManyWithoutCreatedByInput
   memberships?: Prisma.GroupMemberUncheckedCreateNestedManyWithoutUserInput
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutPaidByInput
+  installmentPlans?: Prisma.InstallmentPlanUncheckedCreateNestedManyWithoutResponsibleUserInput
   splitParticipants?: Prisma.SplitParticipantUncheckedCreateNestedManyWithoutUserInput
   transactionsResponsible?: Prisma.TransactionUncheckedCreateNestedManyWithoutResponsibleUserInput
 }
@@ -1776,6 +1947,7 @@ export type UserUpdateWithoutRecurringTransactionsInput = {
   groupsCreated?: Prisma.GroupUpdateManyWithoutCreatedByNestedInput
   memberships?: Prisma.GroupMemberUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutPaidByNestedInput
+  installmentPlans?: Prisma.InstallmentPlanUpdateManyWithoutResponsibleUserNestedInput
   splitParticipants?: Prisma.SplitParticipantUpdateManyWithoutUserNestedInput
   transactionsResponsible?: Prisma.TransactionUpdateManyWithoutResponsibleUserNestedInput
 }
@@ -1798,6 +1970,7 @@ export type UserUncheckedUpdateWithoutRecurringTransactionsInput = {
   groupsCreated?: Prisma.GroupUncheckedUpdateManyWithoutCreatedByNestedInput
   memberships?: Prisma.GroupMemberUncheckedUpdateManyWithoutUserNestedInput
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutPaidByNestedInput
+  installmentPlans?: Prisma.InstallmentPlanUncheckedUpdateManyWithoutResponsibleUserNestedInput
   splitParticipants?: Prisma.SplitParticipantUncheckedUpdateManyWithoutUserNestedInput
   transactionsResponsible?: Prisma.TransactionUncheckedUpdateManyWithoutResponsibleUserNestedInput
 }
@@ -1817,6 +1990,7 @@ export type UserCountOutputType = {
   memberships: number
   payments: number
   recurringTransactions: number
+  installmentPlans: number
   splitParticipants: number
   transactionsResponsible: number
 }
@@ -1831,6 +2005,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   memberships?: boolean | UserCountOutputTypeCountMembershipsArgs
   payments?: boolean | UserCountOutputTypeCountPaymentsArgs
   recurringTransactions?: boolean | UserCountOutputTypeCountRecurringTransactionsArgs
+  installmentPlans?: boolean | UserCountOutputTypeCountInstallmentPlansArgs
   splitParticipants?: boolean | UserCountOutputTypeCountSplitParticipantsArgs
   transactionsResponsible?: boolean | UserCountOutputTypeCountTransactionsResponsibleArgs
 }
@@ -1911,6 +2086,13 @@ export type UserCountOutputTypeCountRecurringTransactionsArgs<ExtArgs extends ru
 /**
  * UserCountOutputType without action
  */
+export type UserCountOutputTypeCountInstallmentPlansArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.InstallmentPlanWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
 export type UserCountOutputTypeCountSplitParticipantsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.SplitParticipantWhereInput
 }
@@ -1942,6 +2124,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   memberships?: boolean | Prisma.User$membershipsArgs<ExtArgs>
   payments?: boolean | Prisma.User$paymentsArgs<ExtArgs>
   recurringTransactions?: boolean | Prisma.User$recurringTransactionsArgs<ExtArgs>
+  installmentPlans?: boolean | Prisma.User$installmentPlansArgs<ExtArgs>
   splitParticipants?: boolean | Prisma.User$splitParticipantsArgs<ExtArgs>
   transactionsResponsible?: boolean | Prisma.User$transactionsResponsibleArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -1994,6 +2177,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   memberships?: boolean | Prisma.User$membershipsArgs<ExtArgs>
   payments?: boolean | Prisma.User$paymentsArgs<ExtArgs>
   recurringTransactions?: boolean | Prisma.User$recurringTransactionsArgs<ExtArgs>
+  installmentPlans?: boolean | Prisma.User$installmentPlansArgs<ExtArgs>
   splitParticipants?: boolean | Prisma.User$splitParticipantsArgs<ExtArgs>
   transactionsResponsible?: boolean | Prisma.User$transactionsResponsibleArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -2013,6 +2197,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     memberships: Prisma.$GroupMemberPayload<ExtArgs>[]
     payments: Prisma.$PaymentPayload<ExtArgs>[]
     recurringTransactions: Prisma.$RecurringTransactionPayload<ExtArgs>[]
+    installmentPlans: Prisma.$InstallmentPlanPayload<ExtArgs>[]
     splitParticipants: Prisma.$SplitParticipantPayload<ExtArgs>[]
     transactionsResponsible: Prisma.$TransactionPayload<ExtArgs>[]
   }
@@ -2429,6 +2614,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   memberships<T extends Prisma.User$membershipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$membershipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GroupMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   payments<T extends Prisma.User$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   recurringTransactions<T extends Prisma.User$recurringTransactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$recurringTransactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RecurringTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  installmentPlans<T extends Prisma.User$installmentPlansArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$installmentPlansArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InstallmentPlanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   splitParticipants<T extends Prisma.User$splitParticipantsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$splitParticipantsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SplitParticipantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   transactionsResponsible<T extends Prisma.User$transactionsResponsibleArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$transactionsResponsibleArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -3075,6 +3261,30 @@ export type User$recurringTransactionsArgs<ExtArgs extends runtime.Types.Extensi
   take?: number
   skip?: number
   distinct?: Prisma.RecurringTransactionScalarFieldEnum | Prisma.RecurringTransactionScalarFieldEnum[]
+}
+
+/**
+ * User.installmentPlans
+ */
+export type User$installmentPlansArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the InstallmentPlan
+   */
+  select?: Prisma.InstallmentPlanSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the InstallmentPlan
+   */
+  omit?: Prisma.InstallmentPlanOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.InstallmentPlanInclude<ExtArgs> | null
+  where?: Prisma.InstallmentPlanWhereInput
+  orderBy?: Prisma.InstallmentPlanOrderByWithRelationInput | Prisma.InstallmentPlanOrderByWithRelationInput[]
+  cursor?: Prisma.InstallmentPlanWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.InstallmentPlanScalarFieldEnum | Prisma.InstallmentPlanScalarFieldEnum[]
 }
 
 /**

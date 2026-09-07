@@ -389,6 +389,7 @@ export const ModelName = {
   GroupMember: 'GroupMember',
   Category: 'Category',
   Transaction: 'Transaction',
+  InstallmentPlan: 'InstallmentPlan',
   Split: 'Split',
   SplitParticipant: 'SplitParticipant',
   Payment: 'Payment',
@@ -411,7 +412,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "group" | "groupMember" | "category" | "transaction" | "split" | "splitParticipant" | "payment" | "goal" | "goalContribution" | "attachment" | "recurringTransaction"
+    modelProps: "user" | "group" | "groupMember" | "category" | "transaction" | "installmentPlan" | "split" | "splitParticipant" | "payment" | "goal" | "goalContribution" | "attachment" | "recurringTransaction"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -782,6 +783,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.TransactionCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.TransactionCountAggregateOutputType> | number
+        }
+      }
+    }
+    InstallmentPlan: {
+      payload: Prisma.$InstallmentPlanPayload<ExtArgs>
+      fields: Prisma.InstallmentPlanFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.InstallmentPlanFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InstallmentPlanPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.InstallmentPlanFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InstallmentPlanPayload>
+        }
+        findFirst: {
+          args: Prisma.InstallmentPlanFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InstallmentPlanPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.InstallmentPlanFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InstallmentPlanPayload>
+        }
+        findMany: {
+          args: Prisma.InstallmentPlanFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InstallmentPlanPayload>[]
+        }
+        create: {
+          args: Prisma.InstallmentPlanCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InstallmentPlanPayload>
+        }
+        createMany: {
+          args: Prisma.InstallmentPlanCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.InstallmentPlanCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InstallmentPlanPayload>[]
+        }
+        delete: {
+          args: Prisma.InstallmentPlanDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InstallmentPlanPayload>
+        }
+        update: {
+          args: Prisma.InstallmentPlanUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InstallmentPlanPayload>
+        }
+        deleteMany: {
+          args: Prisma.InstallmentPlanDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.InstallmentPlanUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.InstallmentPlanUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InstallmentPlanPayload>[]
+        }
+        upsert: {
+          args: Prisma.InstallmentPlanUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InstallmentPlanPayload>
+        }
+        aggregate: {
+          args: Prisma.InstallmentPlanAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateInstallmentPlan>
+        }
+        groupBy: {
+          args: Prisma.InstallmentPlanGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.InstallmentPlanGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.InstallmentPlanCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.InstallmentPlanCountAggregateOutputType> | number
         }
       }
     }
@@ -1415,10 +1490,27 @@ export const TransactionScalarFieldEnum = {
   categoryId: 'categoryId',
   groupId: 'groupId',
   recurringTransactionId: 'recurringTransactionId',
-  responsibleUserId: 'responsibleUserId'
+  responsibleUserId: 'responsibleUserId',
+  installmentPlanId: 'installmentPlanId',
+  installmentNumber: 'installmentNumber'
 } as const
 
 export type TransactionScalarFieldEnum = (typeof TransactionScalarFieldEnum)[keyof typeof TransactionScalarFieldEnum]
+
+
+export const InstallmentPlanScalarFieldEnum = {
+  id: 'id',
+  totalAmount: 'totalAmount',
+  installmentCount: 'installmentCount',
+  firstOccurredAt: 'firstOccurredAt',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  responsibleUserId: 'responsibleUserId',
+  categoryId: 'categoryId'
+} as const
+
+export type InstallmentPlanScalarFieldEnum = (typeof InstallmentPlanScalarFieldEnum)[keyof typeof InstallmentPlanScalarFieldEnum]
 
 
 export const SplitScalarFieldEnum = {
@@ -1683,6 +1775,20 @@ export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMo
 
 
 /**
+ * Reference to a field of type 'Int'
+ */
+export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+/**
+ * Reference to a field of type 'Int[]'
+ */
+export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+/**
  * Reference to a field of type 'SplitMethod'
  */
 export type EnumSplitMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SplitMethod'>
@@ -1735,20 +1841,6 @@ export type EnumAttachmentFileTypeFieldRefInput<$PrismaModel> = FieldRefInputTyp
  * Reference to a field of type 'AttachmentFileType[]'
  */
 export type ListEnumAttachmentFileTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AttachmentFileType[]'>
-    
-
-
-/**
- * Reference to a field of type 'Int'
- */
-export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
-
-/**
- * Reference to a field of type 'Int[]'
- */
-export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
 
 
@@ -1908,6 +2000,7 @@ export type GlobalOmitConfig = {
   groupMember?: Prisma.GroupMemberOmit
   category?: Prisma.CategoryOmit
   transaction?: Prisma.TransactionOmit
+  installmentPlan?: Prisma.InstallmentPlanOmit
   split?: Prisma.SplitOmit
   splitParticipant?: Prisma.SplitParticipantOmit
   payment?: Prisma.PaymentOmit

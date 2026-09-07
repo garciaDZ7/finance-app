@@ -43,6 +43,11 @@ export type Category = Prisma.CategoryModel
  */
 export type Transaction = Prisma.TransactionModel
 /**
+ * Model InstallmentPlan
+ * 
+ */
+export type InstallmentPlan = Prisma.InstallmentPlanModel
+/**
  * Model Split
  * 
  */
