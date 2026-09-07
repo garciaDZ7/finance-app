@@ -190,7 +190,11 @@ export default async function GroupsPage({
                 <article key={group.id} className="rounded-md border border-zinc-800 bg-zinc-900/40 p-5">
                   <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                     <div>
-                      <h3 className="text-lg font-semibold">{group.name}</h3>
+                      <h3 className="text-lg font-semibold">
+                        <a className="hover:text-emerald-300" href={`/groups/${group.id}`}>
+                          {group.name}
+                        </a>
+                      </h3>
                       {group.description ? <p className="mt-1 text-sm text-zinc-400">{group.description}</p> : null}
                     </div>
                     <span className="text-sm font-medium text-emerald-300">
