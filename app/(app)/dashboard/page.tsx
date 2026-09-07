@@ -47,6 +47,12 @@ export default async function DashboardPage({
           <p className="max-w-2xl text-sm leading-6 text-zinc-400">
             Sua sessao esta ativa. As areas financeiras serao conectadas nas proximas etapas.
           </p>
+          <a
+            className="inline-flex text-sm font-medium text-emerald-300 hover:text-emerald-200"
+            href="/categories"
+          >
+            Gerenciar categorias pessoais
+          </a>
         </section>
 
         {isAdmin && (
