@@ -3,8 +3,10 @@
 import { redirect } from "next/navigation";
 
 import { GroupMemberRole, GroupType } from "@/app/generated/prisma/enums";
+import { Prisma } from "@/app/generated/prisma/client";
 import { prisma } from "@/lib/prisma";
 import { requireCurrentUserProfile } from "@/lib/auth/session";
+import { requireGroupAdmin, requireGroupMember } from "@/lib/groups/authorization";
 
 const MAX_GROUP_NAME_LENGTH = 80;
 const MAX_GROUP_DESCRIPTION_LENGTH = 500;
@@ -17,10 +19,46 @@ type GroupActionCode =
   | "INVALID_START_DATE"
   | "INVALID_END_DATE"
   | "END_DATE_BEFORE_START"
-  | "CREATE_FAILED";
+  | "CREATE_FAILED"
+  | "INVALID_MEMBER"
+  | "CANNOT_ADD_SELF"
+  | "ALREADY_MEMBER"
+  | "MEMBER_NOT_ACTIVE"
+  | "LAST_ADMIN"
+  | "MEMBER_UPDATE_FAILED";
 
 function redirectWithError(code: GroupActionCode): never {
   redirect(`/groups?error=${encodeURIComponent(code)}`);
+}
+
+function redirectToGroup(groupId: string, status?: string, error?: GroupActionCode): never {
+  const params = new URLSearchParams();
+
+  if (status) {
+    params.set("status", status);
+  }
+
+  if (error) {
+    params.set("error", error);
+  }
+
+  redirect(`/groups/${groupId}?${params.toString()}`);
+}
+
+const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
+function assertMemberId(userId: string): string {
+  if (!UUID_PATTERN.test(userId)) {
+    redirectWithError("INVALID_MEMBER");
+  }
+
+  return userId;
+}
+
+class GroupMemberActionError extends Error {
+  constructor(public readonly code: Extract<GroupActionCode, "ALREADY_MEMBER" | "MEMBER_NOT_ACTIVE" | "LAST_ADMIN">) {
+    super(code);
+  }
 }
 
 function parseDate(value: string) {
@@ -134,4 +172,184 @@ export async function createGroup(formData: FormData) {
   }
 
   redirect(redirectPath);
+}
+
+export async function addGroupMember(formData: FormData) {
+  const groupId = String(formData.get("groupId") ?? "").trim();
+  const { profile } = await requireGroupAdmin(groupId);
+  const userId = assertMemberId(String(formData.get("userId") ?? "").trim());
+
+  if (userId === profile.id) {
+    redirectToGroup(groupId, undefined, "CANNOT_ADD_SELF");
+  }
+
+  const targetUser = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { id: true },
+  });
+
+  if (!targetUser) {
+    redirectToGroup(groupId, undefined, "INVALID_MEMBER");
+  }
+
+  try {
+    await prisma.$transaction(
+      async (tx) => {
+        const existing = await tx.groupMember.findUnique({
+          where: {
+            userId_groupId: {
+              userId,
+              groupId,
+            },
+          },
+        });
+
+        if (existing?.leftAt === null) {
+          throw new GroupMemberActionError("ALREADY_MEMBER");
+        }
+
+        if (existing) {
+          await tx.groupMember.update({
+            where: { id: existing.id },
+            data: {
+              leftAt: null,
+              role: GroupMemberRole.MEMBER,
+              invitedById: profile.id,
+              joinedAt: new Date(),
+            },
+          });
+          return;
+        }
+
+        await tx.groupMember.create({
+          data: {
+            groupId,
+            userId,
+            role: GroupMemberRole.MEMBER,
+            invitedById: profile.id,
+            joinedAt: new Date(),
+            leftAt: null,
+          },
+        });
+      },
+      { isolationLevel: Prisma.TransactionIsolationLevel.Serializable },
+    );
+  } catch (error) {
+    if (error instanceof GroupMemberActionError) {
+      redirectToGroup(groupId, undefined, error.code);
+    }
+
+    if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002") {
+      redirectToGroup(groupId, undefined, "ALREADY_MEMBER");
+    }
+
+    redirectToGroup(groupId, undefined, "MEMBER_UPDATE_FAILED");
+  }
+
+  redirectToGroup(groupId, "member-added");
+}
+
+export async function removeGroupMember(formData: FormData) {
+  const groupId = String(formData.get("groupId") ?? "").trim();
+  await requireGroupAdmin(groupId);
+  const userId = assertMemberId(String(formData.get("userId") ?? "").trim());
+
+  try {
+    await prisma.$transaction(
+      async (tx) => {
+        const membership = await tx.groupMember.findUnique({
+          where: {
+            userId_groupId: {
+              userId,
+              groupId,
+            },
+          },
+        });
+
+        if (!membership || membership.leftAt !== null) {
+          throw new GroupMemberActionError("MEMBER_NOT_ACTIVE");
+        }
+
+        if (membership.role === GroupMemberRole.ADMIN) {
+          const adminCount = await tx.groupMember.count({
+            where: {
+              groupId,
+              role: GroupMemberRole.ADMIN,
+              leftAt: null,
+            },
+          });
+
+          if (adminCount <= 1) {
+            throw new GroupMemberActionError("LAST_ADMIN");
+          }
+        }
+
+        await tx.groupMember.update({
+          where: { id: membership.id },
+          data: { leftAt: new Date() },
+        });
+      },
+      { isolationLevel: Prisma.TransactionIsolationLevel.Serializable },
+    );
+  } catch (error) {
+    if (error instanceof GroupMemberActionError) {
+      redirectToGroup(groupId, undefined, error.code);
+    }
+
+    redirectToGroup(groupId, undefined, "MEMBER_UPDATE_FAILED");
+  }
+
+  redirectToGroup(groupId, "member-removed");
+}
+
+export async function leaveGroup(formData: FormData) {
+  const groupId = String(formData.get("groupId") ?? "").trim();
+  const { profile } = await requireGroupMember(groupId);
+
+  try {
+    await prisma.$transaction(
+      async (tx) => {
+        const membership = await tx.groupMember.findUnique({
+          where: {
+            userId_groupId: {
+              userId: profile.id,
+              groupId,
+            },
+          },
+        });
+
+        if (!membership || membership.leftAt !== null) {
+          throw new GroupMemberActionError("MEMBER_NOT_ACTIVE");
+        }
+
+        if (membership.role === GroupMemberRole.ADMIN) {
+          const adminCount = await tx.groupMember.count({
+            where: {
+              groupId,
+              role: GroupMemberRole.ADMIN,
+              leftAt: null,
+            },
+          });
+
+          if (adminCount <= 1) {
+            throw new GroupMemberActionError("LAST_ADMIN");
+          }
+        }
+
+        await tx.groupMember.update({
+          where: { id: membership.id },
+          data: { leftAt: new Date() },
+        });
+      },
+      { isolationLevel: Prisma.TransactionIsolationLevel.Serializable },
+    );
+  } catch (error) {
+    if (error instanceof GroupMemberActionError) {
+      redirectToGroup(groupId, undefined, error.code);
+    }
+
+    redirectToGroup(groupId, undefined, "MEMBER_UPDATE_FAILED");
+  }
+
+  redirectToGroup(groupId, "group-left");
 }
